@@ -18,7 +18,22 @@
       --text-muted:#FFCB8C;
     }
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:var(--dark);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden}
+    body{
+      background:linear-gradient(180deg,#1A0E00 0%,#2D1A00 60%,#3D2600 100%);
+      background-attachment:fixed;
+      color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden;
+    }
+    /* Global animated pixel grid — covers entire page */
+    body::before{
+      content:'';
+      position:fixed;inset:0;z-index:0;
+      background-image:
+        linear-gradient(rgba(255,107,0,0.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,107,0,0.05) 1px,transparent 1px);
+      background-size:32px 32px;
+      animation:gridDrift 20s linear infinite;
+      pointer-events:none;
+    }
 
     /* NAV */
     nav{
@@ -38,7 +53,7 @@
     .staff-hero{
       padding-top:0;
       min-height:55vh;
-      background:linear-gradient(180deg,#1A0E00 0%,#2D1A00 60%,#3D2600 100%);
+      background:transparent;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       text-align:center;
       padding:6rem 2rem 4rem;
@@ -55,22 +70,14 @@
       pointer-events:none;
     }
 
-    /* Animated pixel grid */
-    .pixel-grid{
-      position:absolute;inset:0;
-      background-image:
-        linear-gradient(rgba(255,107,0,0.05) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,107,0,0.05) 1px,transparent 1px);
-      background-size:32px 32px;
-      animation:gridDrift 20s linear infinite;
-    }
+    /* Animated pixel grid — now handled by body::before globally */
     @keyframes gridDrift{
       0%{background-position:0 0}
       100%{background-position:32px 32px}
     }
 
-    /* Floating embers */
-    .embers{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+    /* Floating embers — full page */
+    .embers{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
     .ember{
       position:absolute;
       width:3px;height:3px;
@@ -103,15 +110,23 @@
       background:rgba(255,107,0,0.12);border:1px solid var(--orange-dark);
       color:var(--orange-light);font-size:11px;font-weight:700;letter-spacing:2px;
       padding:6px 16px;border-radius:4px;margin-bottom:1.5rem;
-      text-transform:uppercase;position:relative;z-index:1;
+      text-transform:uppercase;position:relative;z-index:2;
     }
 
     /* ── STAFF SECTION ── */
     .staff-section{
-      background:var(--dark2);
-      border-top:2px solid var(--orange-dark);
-      border-bottom:2px solid var(--orange-dark);
+      background:transparent;
       padding:60px 5% 100px;
+      position:relative;
+      overflow:hidden;
+    }
+    .staff-section::before{
+      content:'';position:absolute;inset:0;
+      background-image:
+        radial-gradient(circle at 15% 20%,rgba(255,107,0,0.10) 0%,transparent 50%),
+        radial-gradient(circle at 85% 80%,rgba(255,140,51,0.08) 0%,transparent 50%),
+        radial-gradient(circle at 50% 50%,rgba(255,107,0,0.06) 0%,transparent 40%);
+      pointer-events:none;
     }
 
     .staff-grid{
@@ -120,6 +135,8 @@
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
       gap:35px;
+      position:relative;
+      z-index:1;
     }
 
     /* Cards — scroll reveal */
@@ -263,9 +280,9 @@
   </nav>
 
   <!-- HERO -->
+  <div class="embers" id="embers"></div>
+
   <section class="staff-hero">
-    <div class="pixel-grid"></div>
-    <div class="embers" id="embers"></div>
     <div class="hero-badge">👥 Tim di Balik Server</div>
     <h1 class="staff-title">STAFF TEAM</h1>
   </section>
