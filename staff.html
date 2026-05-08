@@ -4,548 +4,317 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Staff Team - Cookies Network</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --orange: #FF6B00;
-      --orange-dark: #CC5500;
-      --orange-glow: rgba(255, 107, 0, 0.4);
-      --dark: #0F0800;
-      --dark2: #1A0E00;
-      --dark3: #261500;
-      --text: #FFF3E6;
-      --text-muted: #FFCB8C;
+    :root{
+      --orange:#FF6B00;
+      --orange-light:#FF8C33;
+      --orange-dark:#CC5500;
+      --orange-glow:rgba(255,107,0,0.1);
+      --dark:#1A0E00;
+      --dark2:#2D1A00;
+      --dark3:#3D2600;
+      --text:#FFF3E6;
+      --text-muted:#FFCB8C;
     }
-
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--dark);
-      color: var(--text);
-      font-family: 'Nunito', sans-serif;
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* CUSTOM CURSOR */
-    .cursor {
-      position: fixed;
-      width: 12px; height: 12px;
-      background: var(--orange);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s;
-      mix-blend-mode: screen;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 36px; height: 36px;
-      border: 1.5px solid var(--orange);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: all 0.15s ease;
-      opacity: 0.6;
-    }
-    body:hover .cursor { opacity: 1; }
-
-    /* FLOATING PARTICLES */
-    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .particle {
-      position: absolute;
-      width: 3px; height: 3px;
-      background: var(--orange);
-      border-radius: 50%;
-      opacity: 0;
-      animation: floatParticle linear infinite;
-    }
-    @keyframes floatParticle {
-      0% { transform: translateY(100vh) scale(0); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.3; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--dark);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden}
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 0 5%;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 72px;
-      background: rgba(15, 8, 0, 0.85);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255, 107, 0, 0.2);
-      transition: all 0.3s;
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      background:rgba(26,14,0,0.98);
+      border-bottom:3px solid var(--orange-dark);
+      padding:1rem 5%;
+      display:flex;align-items:center;justify-content:space-between;
     }
-    nav.scrolled {
-      background: rgba(15, 8, 0, 0.97);
-      border-bottom-color: rgba(255, 107, 0, 0.5);
-      box-shadow: 0 4px 30px rgba(255, 107, 0, 0.15);
-    }
-    .nav-logo {
-      font-family: 'Press Start 2P', monospace;
-      color: var(--orange);
-      display: flex; align-items: center; gap: 12px;
-      font-size: 13px;
-      text-shadow: 0 0 20px var(--orange-glow);
-    }
-    .nav-logo img { height: 36px; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.3s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px; background: var(--orange);
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-links a.active { color: var(--orange); }
-    .nav-links a.active::after { transform: scaleX(1); }
+    .nav-logo{font-family:'Press Start 2P',monospace;color:var(--orange);display:flex;align-items:center;gap:12px;font-size:15px;text-shadow:0 0 12px rgba(255,107,0,0.5);}
+    .nav-logo img{height:38px}
+    .nav-links{display:flex;gap:2.2rem}
+    .nav-links a{color:var(--text-muted);text-decoration:none;font-weight:700;font-size:14px;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--orange);}
 
-    /* HERO */
-    .staff-hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(ellipse 80% 60% at 50% 60%, #2D1400 0%, #0F0800 70%);
+    /* ── HERO ── */
+    .staff-hero{
+      padding-top:0;
+      min-height:55vh;
+      background:linear-gradient(180deg,#1A0E00 0%,#2D1A00 60%,#3D2600 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;
+      padding:6rem 2rem 4rem;
+      position:relative;overflow:hidden;
+    }
+
+    /* Radial glow blobs — same as index hero::before */
+    .staff-hero::before{
+      content:'';position:absolute;inset:0;
+      background-image:
+        radial-gradient(circle at 20% 30%,rgba(255,107,0,0.10) 0%,transparent 50%),
+        radial-gradient(circle at 80% 70%,rgba(255,140,51,0.08) 0%,transparent 50%),
+        radial-gradient(circle at 55% 55%,rgba(255,107,0,0.06) 0%,transparent 40%);
+      pointer-events:none;
     }
 
     /* Animated pixel grid */
-    .pixel-grid {
-      position: absolute; inset: 0;
+    .pixel-grid{
+      position:absolute;inset:0;
       background-image:
-        linear-gradient(rgba(255,107,0,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,107,0,0.07) 1px, transparent 1px);
-      background-size: 44px 44px;
-      animation: gridPulse 6s ease-in-out infinite;
+        linear-gradient(rgba(255,107,0,0.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,107,0,0.05) 1px,transparent 1px);
+      background-size:32px 32px;
+      animation:gridDrift 20s linear infinite;
     }
-    @keyframes gridPulse {
-      0%, 100% { opacity: 0.5; background-size: 44px 44px; }
-      50% { opacity: 1; background-size: 46px 46px; }
-    }
-
-    /* Orbiting rings */
-    .hero-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(255,107,0,0.12);
-      animation: spinRing linear infinite;
-    }
-    .hero-ring:nth-child(1) { width: 500px; height: 500px; animation-duration: 30s; }
-    .hero-ring:nth-child(2) { width: 700px; height: 700px; animation-duration: 45s; animation-direction: reverse; border-color: rgba(255,107,0,0.07); }
-    .hero-ring:nth-child(3) { width: 900px; height: 900px; animation-duration: 60s; border-color: rgba(255,107,0,0.04); }
-    @keyframes spinRing {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .hero-ring::before {
-      content: '';
-      position: absolute;
-      top: -4px; left: 50%;
-      width: 8px; height: 8px;
-      background: var(--orange);
-      border-radius: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 0 12px var(--orange);
+    @keyframes gridDrift{
+      0%{background-position:0 0}
+      100%{background-position:32px 32px}
     }
 
-    .hero-content { position: relative; z-index: 2; text-align: center; }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.3);
-      border-radius: 30px;
-      padding: 6px 18px;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 28px;
-      animation: badgePop 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+    /* Floating embers */
+    .embers{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+    .ember{
+      position:absolute;
+      width:3px;height:3px;
+      background:var(--orange);
+      border-radius:50%;
+      opacity:0;
+      animation:floatUp var(--dur,6s) ease-in var(--delay,0s) infinite;
     }
-    .badge-dot {
-      width: 6px; height: 6px;
-      background: var(--orange);
-      border-radius: 50%;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:0.6} }
-    @keyframes badgePop {
-      from { transform: scale(0.5) translateY(10px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
+    @keyframes floatUp{
+      0%  {opacity:0;transform:translateY(0) scale(1);}
+      15% {opacity:0.8;}
+      80% {opacity:0.3;}
+      100%{opacity:0;transform:translateY(-120px) scale(0.3);}
     }
 
-    .staff-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(36px, 6vw, 64px);
-      color: var(--orange);
-      line-height: 1.3;
-      text-shadow: 0 0 60px rgba(255,107,0,0.6), 0 0 120px rgba(255,107,0,0.2);
-      animation: titleReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+    .staff-title{
+      font-family:'Press Start 2P',monospace;
+      font-size:clamp(36px,6vw,58px);
+      color:var(--orange);
+      text-shadow:0 0 40px rgba(255,107,0,0.6),0 4px 0 #7a3300;
+      position:relative;z-index:1;
+      animation:titlePulse 3s ease-in-out infinite;
     }
-    @keyframes titleReveal {
-      from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
-      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    }
-
-    .hero-sub {
-      margin-top: 16px;
-      font-size: 15px; font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-      animation: titleReveal 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s both;
+    @keyframes titlePulse{
+      0%,100%{text-shadow:0 0 40px rgba(255,107,0,0.6),0 4px 0 #7a3300;}
+      50%    {text-shadow:0 0 70px rgba(255,107,0,0.9),0 4px 0 #7a3300;}
     }
 
-    .scroll-hint {
-      position: absolute; bottom: 32px;
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: rgba(255,203,140,0.4); font-size: 11px; letter-spacing: 0.1em;
-      animation: titleReveal 1s 1.2s both;
-    }
-    .scroll-arrow {
-      width: 22px; height: 22px;
-      border-right: 2px solid rgba(255,107,0,0.4);
-      border-bottom: 2px solid rgba(255,107,0,0.4);
-      transform: rotate(45deg);
-      animation: scrollBounce 1.4s ease-in-out infinite;
-    }
-    @keyframes scrollBounce {
-      0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)}
+    .hero-badge{
+      background:rgba(255,107,0,0.12);border:1px solid var(--orange-dark);
+      color:var(--orange-light);font-size:11px;font-weight:700;letter-spacing:2px;
+      padding:6px 16px;border-radius:4px;margin-bottom:1.5rem;
+      text-transform:uppercase;position:relative;z-index:1;
     }
 
-    /* STAFF SECTION */
-    .staff-section {
-      padding: 80px 5% 120px;
-      background: var(--dark2);
-      position: relative;
-    }
-    .staff-section::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--orange), transparent);
+    /* ── STAFF SECTION ── */
+    .staff-section{
+      background:var(--dark2);
+      border-top:2px solid var(--orange-dark);
+      border-bottom:2px solid var(--orange-dark);
+      padding:60px 5% 100px;
     }
 
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-      opacity: 0; transform: translateY(20px);
-      transition: all 0.7s cubic-bezier(0.16,1,0.3,1);
-    }
-    .section-header.visible { opacity: 1; transform: translateY(0); }
-    .section-label {
-      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--orange); font-weight: 700;
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-      margin-bottom: 12px;
-    }
-    .section-label::before, .section-label::after {
-      content: ''; width: 40px; height: 1px; background: var(--orange-dark);
-    }
-    .section-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(20px, 3.5vw, 30px);
-      color: var(--text);
+    .staff-grid{
+      max-width:1400px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+      gap:35px;
     }
 
-    /* GRID */
-    .staff-grid {
-      max-width: 1300px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
+    /* Cards — scroll reveal */
+    .staff-card{
+      background:var(--dark);
+      border:2px solid var(--orange-dark);
+      border-radius:16px;
+      overflow:hidden;
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+    .staff-card.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .staff-card:hover{
+      transform:translateY(-12px) !important;
+      border-color:var(--orange);
+      box-shadow:0 20px 40px rgba(255,107,0,0.28);
     }
 
-    /* CARD */
-    .staff-card {
-      background: var(--dark);
-      border: 1px solid rgba(255,107,0,0.2);
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      opacity: 0; transform: translateY(40px) scale(0.97);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, border-color 0.4s;
-      cursor: none;
+    .staff-card img{
+      width:100%;
+      height:340px;
+      object-fit:cover;
+      transition:transform 0.5s ease;
     }
-    .staff-card.visible { opacity: 1; transform: translateY(0) scale(1); }
-    .staff-card:hover {
-      transform: translateY(-10px) scale(1.02) !important;
-      border-color: var(--orange);
-      box-shadow: 0 24px 60px rgba(255,107,0,0.3), 0 0 0 1px rgba(255,107,0,0.3) inset;
+    .staff-card:hover img{
+      transform:scale(1.04);
     }
 
-    /* Card glow effect on hover */
-    .staff-card::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255,107,0,0.12) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-    .staff-card:hover::before { opacity: 1; }
-
-    /* Image wrapper with overlay */
-    .card-img-wrap {
-      position: relative;
-      height: 320px;
-      overflow: hidden;
-    }
-    .card-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), filter 0.4s;
-      filter: brightness(0.85) saturate(0.9);
-    }
-    .staff-card:hover .card-img-wrap img {
-      transform: scale(1.07);
-      filter: brightness(1) saturate(1.1);
+    .staff-name{
+      background:var(--orange);
+      color:#000;
+      font-size:1.65rem;
+      font-weight:800;
+      padding:14px 0;
+      text-align:center;
     }
 
-    /* Scanline overlay */
-    .card-img-wrap::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px);
-      pointer-events: none;
+    .staff-info{
+      padding:20px 25px 30px;
+      text-align:center;
     }
 
-    /* Image gradient bottom */
-    .card-img-wrap::before {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
-      background: linear-gradient(transparent, var(--dark));
-      z-index: 1; pointer-events: none;
+    .staff-role{
+      display:inline-block;
+      padding:8px 26px;
+      border-radius:30px;
+      font-weight:800;
+      font-size:14px;
+      margin:12px 0;
+      letter-spacing:1px;
+      position:relative;
+      overflow:hidden;
+    }
+    .staff-role::after{
+      content:'';
+      position:absolute;inset:0;
+      background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.15) 50%,transparent 100%);
+      transform:translateX(-100%);
+      animation:shimmer 2.5s ease-in-out infinite;
+    }
+    @keyframes shimmer{
+      0%  {transform:translateX(-100%)}
+      60%,100%{transform:translateX(100%)}
+    }
+    .owner {background:#FF3333; color:white;}
+    .admin {background:#FF8800; color:white;}
+    .mod   {background:#00CC66; color:white;}
+    .helper{background:#4488FF; color:white;}
+    .builder{background:#AA77FF;color:white;}
+
+    .mc-name{
+      font-family:'Press Start 2P',monospace;
+      background:rgba(0,0,0,0.6);
+      padding:8px 22px;
+      border-radius:30px;
+      font-size:0.95rem;
+      color:var(--text-muted);
     }
 
-    /* Role badge on image */
-    .role-badge-wrap {
-      position: absolute; top: 16px; left: 16px; z-index: 2;
+    /* ── CUSTOM CURSOR ── */
+    *{cursor:none!important}
+    #cur-dot{
+      position:fixed;top:0;left:0;z-index:99999;pointer-events:none;
+      width:12px;height:12px;
+      background:#FF6B00;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 10px 3px rgba(255,107,0,0.7);
+      transition:transform 0.08s ease,width 0.15s ease,height 0.15s ease,background 0.15s ease;
+    }
+    #cur-ring{
+      position:fixed;top:0;left:0;z-index:99998;pointer-events:none;
+      width:32px;height:32px;
+      border:2px solid rgba(255,107,0,0.6);
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      transition:width 0.2s ease,height 0.2s ease,border-color 0.2s ease;
+    }
+    .cur-trail{
+      position:fixed;top:0;left:0;z-index:99997;pointer-events:none;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      opacity:0;
+      animation:trailFade 0.5s ease forwards;
+    }
+    @keyframes trailFade{
+      0%  {opacity:0.7;transform:translate(-50%,-50%) scale(1);}
+      100%{opacity:0;  transform:translate(-50%,-50%) scale(0.2);}
     }
 
-    .card-body { position: relative; z-index: 1; padding: 18px 24px 28px; }
-
-    .staff-name {
-      font-size: 1.45rem; font-weight: 900;
-      color: var(--text); margin-bottom: 10px;
-      transition: color 0.3s;
-    }
-    .staff-card:hover .staff-name { color: var(--orange); }
-
-    .staff-role {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 18px;
-      border-radius: 30px;
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-    .staff-role .role-dot { width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.7; }
-
-    .owner { background: rgba(255,51,51,0.15); color: #FF6666; border: 1px solid rgba(255,51,51,0.4); }
-    .admin { background: rgba(255,136,0,0.15); color: #FFAA44; border: 1px solid rgba(255,136,0,0.4); }
-    .mod { background: rgba(0,204,102,0.15); color: #44DD88; border: 1px solid rgba(0,204,102,0.4); }
-    .helper { background: rgba(68,136,255,0.15); color: #77AAFF; border: 1px solid rgba(68,136,255,0.4); }
-    .builder { background: rgba(170,119,255,0.15); color: #BB99FF; border: 1px solid rgba(170,119,255,0.4); }
-
-    .mc-name {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 11px;
-      color: var(--text-muted);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 8px 16px;
-      border-radius: 8px;
-      display: inline-block;
-      transition: background 0.3s, border-color 0.3s;
-    }
-    .staff-card:hover .mc-name {
-      background: rgba(255,107,0,0.1);
-      border-color: rgba(255,107,0,0.3);
-    }
-
-    /* Card shine effect */
-    .card-shine {
-      position: absolute;
-      top: 0; left: -100%;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
-      transition: left 0.6s ease;
-      pointer-events: none; z-index: 3;
-    }
-    .staff-card:hover .card-shine { left: 150%; }
-
-    /* FOOTER */
-    footer {
-      background: var(--dark);
-      border-top: 1px solid rgba(255,107,0,0.15);
-      padding: 40px 5%;
-      text-align: center;
-    }
-    .footer-logo {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 14px; color: var(--orange);
-      text-shadow: 0 0 20px var(--orange-glow);
-      margin-bottom: 12px;
-    }
-    .footer-text { font-size: 12px; color: rgba(255,203,140,0.4); }
-
-    /* Stagger delays */
-    .staff-card:nth-child(1) { transition-delay: 0s; }
-    .staff-card:nth-child(2) { transition-delay: 0.08s; }
-    .staff-card:nth-child(3) { transition-delay: 0.16s; }
-    .staff-card:nth-child(4) { transition-delay: 0.24s; }
-    .staff-card:nth-child(5) { transition-delay: 0.32s; }
-    .staff-card:nth-child(6) { transition-delay: 0.40s; }
-
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .staff-title { font-size: 28px; }
-      .staff-grid { grid-template-columns: 1fr; }
-    }
+    /* Stagger delays for cards */
+    .staff-card:nth-child(1){transition-delay:0.05s}
+    .staff-card:nth-child(2){transition-delay:0.15s}
+    .staff-card:nth-child(3){transition-delay:0.25s}
+    .staff-card:nth-child(4){transition-delay:0.35s}
+    .staff-card:nth-child(5){transition-delay:0.45s}
   </style>
 </head>
 <body>
 
-  <!-- Cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <!-- Particles -->
-  <div class="particles" id="particles"></div>
+<!-- CUSTOM CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
 
   <!-- NAV -->
-  <nav id="navbar">
+  <nav>
     <div class="nav-logo">
-      <img src="logo.png" alt="Cookies Network" onerror="this.style.display='none'">
-      COOKIES NETWORK
+      <img src="logo.png" alt="Cookies Network"> COOKIES NETWORK
     </div>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="index.html#fitur">Fitur</a>
       <a href="index.html#toko">Toko</a>
       <a href="index.html#discord">Discord</a>
-      <a href="staff.html" class="active">👥 Staff</a>
+      <a href="staff.html" style="color:#FF6B00; font-weight:bold;">👥 Staff</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="staff-hero">
     <div class="pixel-grid"></div>
-    <div class="hero-ring"></div>
-    <div class="hero-ring"></div>
-    <div class="hero-ring"></div>
-
-    <div class="hero-content">
-      <div class="hero-badge">
-        <div class="badge-dot"></div>
-        Cookies Network
-      </div>
-      <h1 class="staff-title">STAFF TEAM</h1>
-      <p class="hero-sub">Tim yang menjaga server tetap asik & aman 🍪</p>
-    </div>
-
-    <div class="scroll-hint">
-      <span>SCROLL</span>
-      <div class="scroll-arrow"></div>
-    </div>
+    <div class="embers" id="embers"></div>
+    <div class="hero-badge">👥 Tim di Balik Server</div>
+    <h1 class="staff-title">STAFF TEAM</h1>
   </section>
 
   <!-- STAFF SECTION -->
   <div class="staff-section">
-    <div class="section-header" id="sectionHeader">
-      <div class="section-label">Our Team</div>
-      <div class="section-title">KENALI STAFF KAMI</div>
-    </div>
-
-    <div class="staff-grid" id="staffGrid">
+    <div class="staff-grid">
 
       <div class="staff-card">
-        <div class="card-shine"></div>
-        <div class="card-img-wrap">
-          <img src="img/owner.jpg" alt="Owner" onerror="this.src='https://placehold.co/400x320/1A0E00/FF6B00?text=OWNER'">
-          <div class="role-badge-wrap">
-            <span class="staff-role owner"><span class="role-dot"></span>OWNER</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="staff-name">Nama Owner</div>
+        <img src="img/owner.jpg" alt="Owner">
+        <div class="staff-name">Nama Owner</div>
+        <div class="staff-info">
+          <div class="staff-role owner">OWNER</div>
           <div class="mc-name">owner_mcname</div>
         </div>
       </div>
 
       <div class="staff-card">
-        <div class="card-shine"></div>
-        <div class="card-img-wrap">
-          <img src="img/admin.jpg" alt="Admin" onerror="this.src='https://placehold.co/400x320/1A0E00/FF8800?text=ADMIN'">
-          <div class="role-badge-wrap">
-            <span class="staff-role admin"><span class="role-dot"></span>ADMIN</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="staff-name">Nama Admin</div>
+        <img src="img/admin.jpg" alt="Admin">
+        <div class="staff-name">Nama Admin</div>
+        <div class="staff-info">
+          <div class="staff-role admin">ADMIN</div>
           <div class="mc-name">admin_mcname</div>
         </div>
       </div>
 
       <div class="staff-card">
-        <div class="card-shine"></div>
-        <div class="card-img-wrap">
-          <img src="img/mod.jpg" alt="Moderator" onerror="this.src='https://placehold.co/400x320/001A0E/00CC66?text=MODERATOR'">
-          <div class="role-badge-wrap">
-            <span class="staff-role mod"><span class="role-dot"></span>MODERATOR</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="staff-name">Nama Moderator</div>
+        <img src="img/mod.jpg" alt="Moderator">
+        <div class="staff-name">Nama Moderator</div>
+        <div class="staff-info">
+          <div class="staff-role mod">MODERATOR</div>
           <div class="mc-name">mod_mcname</div>
         </div>
       </div>
 
       <div class="staff-card">
-        <div class="card-shine"></div>
-        <div class="card-img-wrap">
-          <img src="img/helper.jpg" alt="Helper" onerror="this.src='https://placehold.co/400x320/001020/4488FF?text=HELPER'">
-          <div class="role-badge-wrap">
-            <span class="staff-role helper"><span class="role-dot"></span>HELPER</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="staff-name">Nama Helper</div>
+        <img src="img/helper.jpg" alt="Helper">
+        <div class="staff-name">Nama Helper</div>
+        <div class="staff-info">
+          <div class="staff-role helper">HELPER</div>
           <div class="mc-name">helper_mcname</div>
         </div>
       </div>
 
       <div class="staff-card">
-        <div class="card-shine"></div>
-        <div class="card-img-wrap">
-          <img src="img/builder.jpg" alt="Builder" onerror="this.src='https://placehold.co/400x320/0E001A/AA77FF?text=BUILDER'">
-          <div class="role-badge-wrap">
-            <span class="staff-role builder"><span class="role-dot"></span>BUILDER</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="staff-name">Nama Builder</div>
+        <img src="img/builder.jpg" alt="Builder">
+        <div class="staff-name">Nama Builder</div>
+        <div class="staff-info">
+          <div class="staff-role builder">BUILDER</div>
           <div class="mc-name">builder_mcname</div>
         </div>
       </div>
@@ -553,66 +322,96 @@
     </div>
   </div>
 
-  <footer>
-    <div class="footer-logo">COOKIES NETWORK</div>
-    <div class="footer-text">© 2025 Cookies Network · All rights reserved</div>
-  </footer>
-
   <script>
-    // CUSTOM CURSOR
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    function animCursor() {
-      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(animCursor);
+    /* ── FLOATING EMBERS ── */
+    const container = document.getElementById('embers');
+    for(let i = 0; i < 28; i++){
+      const e = document.createElement('div');
+      e.className = 'ember';
+      e.style.setProperty('--dur',  (4 + Math.random()*6)+'s');
+      e.style.setProperty('--delay',(Math.random()*6)+'s');
+      e.style.left  = (Math.random()*100)+'%';
+      e.style.bottom= (Math.random()*30)+'%';
+      // vary size & colour slightly
+      const sz = 2+Math.random()*3;
+      e.style.width  = sz+'px';
+      e.style.height = sz+'px';
+      e.style.background = Math.random()>0.5 ? '#FF6B00' : '#FFCB8C';
+      container.appendChild(e);
     }
-    animCursor();
-    document.querySelectorAll('a, .staff-card, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px'; cursor.style.height = '20px';
-        ring.style.width = '50px'; ring.style.height = '50px';
+
+    /* ── SCROLL REVEAL for cards ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
       });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px'; cursor.style.height = '12px';
-        ring.style.width = '36px'; ring.style.height = '36px';
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.staff-card').forEach(el => observer.observe(el));
+
+    /* ── CUSTOM CURSOR ── */
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx=0,my=0,rx=0,ry=0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx+'px';
+      dot.style.top  = my+'px';
+
+      // spawn trail ember
+      const t = document.createElement('div');
+      t.className = 'cur-trail';
+      const sz = 3 + Math.random()*5;
+      t.style.cssText = `width:${sz}px;height:${sz}px;left:${mx}px;top:${my}px;background:${Math.random()>.5?'#FF6B00':'#FFCB8C'};`;
+      document.body.appendChild(t);
+      setTimeout(()=>t.remove(), 500);
+    });
+
+    // ring lags behind for smooth follow
+    (function loopRing(){
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.left = rx+'px';
+      ring.style.top  = ry+'px';
+      requestAnimationFrame(loopRing);
+    })();
+
+    // grow on interactive elements
+    const hoverEls = document.querySelectorAll('a,button,.rank-card,.feature-card,.staff-card,.ip-box');
+    hoverEls.forEach(el => {
+      el.addEventListener('mouseenter', ()=>{
+        dot.style.width  = '18px';
+        dot.style.height = '18px';
+        dot.style.background = '#FFCB8C';
+        ring.style.width  = '48px';
+        ring.style.height = '48px';
+        ring.style.borderColor = 'rgba(255,203,140,0.8)';
+      });
+      el.addEventListener('mouseleave', ()=>{
+        dot.style.width  = '12px';
+        dot.style.height = '12px';
+        dot.style.background = '#FF6B00';
+        ring.style.width  = '32px';
+        ring.style.height = '32px';
+        ring.style.borderColor = 'rgba(255,107,0,0.6)';
       });
     });
 
-    // PARTICLES
-    const particlesEl = document.getElementById('particles');
-    for (let i = 0; i < 30; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.cssText = `
-        left: ${Math.random() * 100}%;
-        width: ${1 + Math.random() * 3}px;
-        height: ${1 + Math.random() * 3}px;
-        animation-duration: ${8 + Math.random() * 14}s;
-        animation-delay: ${Math.random() * 10}s;
-        opacity: ${0.2 + Math.random() * 0.5};
-      `;
-      particlesEl.appendChild(p);
-    }
-
-    // NAV scroll
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    // click burst
+    document.addEventListener('mousedown', ()=>{
+      dot.style.transform = 'translate(-50%,-50%) scale(0.6)';
+      ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
+      ring.style.opacity = '0.3';
     });
-
-    // SCROLL REVEAL
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-
-    document.getElementById('sectionHeader') && observer.observe(document.getElementById('sectionHeader'));
-    document.querySelectorAll('.staff-card').forEach(c => observer.observe(c));
+    document.addEventListener('mouseup', ()=>{
+      dot.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.opacity = '1';
+    });
   </script>
+
 </body>
 </html>
