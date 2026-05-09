@@ -208,67 +208,23 @@
   .feat-title{font-weight:800;font-size:15px;color:var(--text);margin-bottom:8px}
   .feat-desc{font-size:13px;color:var(--text-muted);line-height:1.7}
 
-  /* ── SHOP ── */
-  .shop-bg{background:var(--dark2);border-top:2px solid var(--orange-dark);border-bottom:2px solid var(--orange-dark);padding:5rem 2rem}
-  .shop-inner{max-width:1000px;margin:0 auto}
-  .shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-  .rank-card{
-    background:var(--dark);border-radius:10px;overflow:hidden;
-    border:1px solid var(--orange-dark);
-    transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    position:relative;
-    opacity:0;transform:translateY(28px);
-  }
-  .rank-card.visible{opacity:1;transform:translateY(0)}
-  .rank-card:hover{transform:translateY(-8px) !important;border-color:var(--orange);box-shadow:0 16px 36px rgba(255,107,0,0.22)}
-  .rank-card.featured{border:2px solid var(--orange)}
-  .popular-badge{
-    position:absolute;top:10px;right:10px;
-    background:var(--orange);color:var(--dark);
-    font-size:8px;font-weight:800;padding:4px 8px;border-radius:3px;
-    font-family:'Press Start 2P',monospace;
-    animation:badgePulse 2s ease-in-out infinite;
-  }
-  @keyframes badgePulse{
-    0%,100%{box-shadow:0 0 0 0 rgba(255,107,0,0.5)}
-    50%    {box-shadow:0 0 0 6px rgba(255,107,0,0)}
-  }
-  .rank-header{
-    padding:1.5rem;
+  /* ── STORE CTA BANNER ── */
+  .store-cta{
     background:linear-gradient(135deg,var(--dark2),var(--dark3));
-    border-bottom:1px solid var(--orange-dark);text-align:center;
+    border-top:2px solid var(--orange-dark);border-bottom:2px solid var(--orange-dark);
+    padding:4rem 2rem;text-align:center;
   }
-  .rank-name{font-family:'Press Start 2P',monospace;font-size:11px;margin-bottom:8px}
-  .rank-name.knight{color:#A0A0B0}
-  .rank-name.vip{color:#57FF6E}
-  .rank-name.mvp{color:#5BE8FF}
-  .rank-name.celestial{color:#C084FC}
-  .rank-name.biscuit{color:#FFD700}
-  .rank-name.biscuitplus{color:#FF6B00;text-shadow:0 0 10px rgba(255,107,0,0.8)}
-  .rank-price{font-size:26px;font-weight:800;color:var(--orange)}
-  .rank-price span{font-size:13px;font-weight:600;color:var(--text-muted)}
-  .rank-perks{padding:1rem 1.25rem;list-style:none}
-  .rank-perks li{
-    font-size:13px;color:var(--text-muted);padding:6px 0;
-    border-bottom:1px solid rgba(255,107,0,0.08);
-    display:flex;align-items:center;gap:8px;
+  .store-cta-inner{
+    max-width:560px;margin:0 auto;
+    opacity:0;transform:translateY(24px);
+    transition:opacity 0.6s,transform 0.6s;
   }
-  .rank-perks li::before{content:'▸';color:var(--orange);font-size:10px;flex-shrink:0}
-  .rank-perks li:last-child{border-bottom:none}
-  .rank-btn{
-    display:block;margin:0 1rem 1rem;
-    background:var(--orange);color:var(--dark);text-align:center;
-    padding:12px;border-radius:6px;text-decoration:none;font-weight:800;font-size:13px;
-    transition:background 0.2s;box-shadow:0 3px 0 var(--orange-dark);
-    position:relative;overflow:hidden;
-  }
-  .rank-btn::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);
-    transform:translateX(-100%);
-    animation:btnShimmer 3s ease-in-out infinite;
-  }
-  .rank-btn:hover{background:var(--orange-light)}
+  .store-cta-inner.visible{opacity:1;transform:translateY(0)}
+  .store-cta-icon{font-size:48px;margin-bottom:1rem;display:block;animation:storeBounce 3s ease-in-out infinite}
+  @keyframes storeBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .store-cta-title{font-family:'Press Start 2P',monospace;font-size:14px;color:var(--orange);margin-bottom:1rem}
+  .store-cta-desc{color:var(--text-muted);font-size:15px;line-height:1.8;margin-bottom:2rem}
+  .store-cta-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
 
   /* ── DISCORD CTA ── */
   .discord-section{text-align:center;padding:5rem 2rem;background:var(--dark)}
@@ -336,18 +292,10 @@
     0%  {opacity:0.7;transform:translate(-50%,-50%) scale(1);}
     100%{opacity:0;  transform:translate(-50%,-50%) scale(0.2);}
   }
-  /* cursor grows on hover over interactive elements */
-  a:hover ~ #cur-dot, button:hover ~ #cur-dot{transform:translate(-50%,-50%) scale(1.8)}
 
   /* ── SCROLL REVEAL base ── */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s,transform 0.6s}
   .reveal.visible{opacity:1;transform:translateY(0)}
-
-  /* Stagger for rank cards inside shop-grid */
-  .shop-grid .rank-card:nth-child(1){transition-delay:0.05s}
-  .shop-grid .rank-card:nth-child(2){transition-delay:0.12s}
-  .shop-grid .rank-card:nth-child(3){transition-delay:0.19s}
-  .shop-grid .rank-card:nth-child(4){transition-delay:0.26s}
 
   /* Stagger for feature cards */
   .features-grid .feature-card:nth-child(1) {transition-delay:0.03s}
@@ -375,10 +323,10 @@
   </div>
   <div class="nav-links">
     <a href="#fitur">Fitur</a>
-    <a href="#toko">Store</a>
+    <a href="store.html">Store</a>
     <a href="#discord">Discord</a>
     <a href="about.html">About</a>
-    <a href="staff.html" style="color:#FFCB8C; font-weight:bold;">Staff</a>   <!-- Link Staff -->
+    <a href="staff.html" style="color:#FFCB8C; font-weight:bold;">Staff</a>
   </div>
 </nav>
 
@@ -395,13 +343,12 @@
     Bangun kerajaanmu, berdagang dengan pemain lain, dan jadilah yang terkaya!
   </p>
   <div class="hero-btns">
-    <a href="#toko" class="btn-primary">🛒 Lihat Toko Rank</a>
+    <a href="store.html" class="btn-primary">🛒 Lihat Store</a>
     <a href="#discord" class="btn-secondary">💬 Gabung Discord</a>
   </div>
   <div class="ip-box">
     <div>
       <div class="ip-label">IP Server</div>
-      <!-- GANTI IP SERVERMU DI SINI -->
       <div class="ip-value" id="serverIP">cookiessmp.my.id</div>
     </div>
     <button class="copy-btn" onclick="copyIP()">SALIN</button>
@@ -483,136 +430,18 @@
   </div>
 </section>
 
-<!-- TOKO RANK -->
-<div class="shop-bg" id="toko">
-  <div class="shop-inner">
-    <div class="section-title">TOKO RANK</div>
-    <p class="section-sub" style="text-align:center;color:var(--text-muted);margin-bottom:2.5rem">
-      Pembelian semua rank dilayani langsung via Discord 🍪
+<!-- STORE CTA BANNER -->
+<div class="store-cta">
+  <div class="store-cta-inner">
+    <span class="store-cta-icon">🛒</span>
+    <div class="store-cta-title">KUNJUNGI STORE KAMI</div>
+    <p class="store-cta-desc">
+      Dapatkan Rank eksklusif dan Cookies Coins untuk tingkatkan pengalaman bermainmu.
+      Pembelian aman & cepat lewat Discord!
     </p>
-    <div class="shop-grid">
-
-      <!-- KNIGHT -->
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name knight">⚔ KNIGHT</div>
-          <div class="rank-price">Rp 15.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Knight] di chat</li>
-          <li>2 slot /sethome</li>
-          <li>TempFly 30 menit/hari</li>
-          <li>Kit Knight tiap 3 hari</li>
-          <li>Warna nama di chat</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-      <!-- VIP -->
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name vip">★ VIP</div>
-          <div class="rank-price">Rp 25.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [VIP] di chat</li>
-          <li>4 slot /sethome</li>
-          <li>TempFly 1 jam/hari</li>
-          <li>Kit VIP tiap 2 hari</li>
-          <li>Akses Auction House</li>
-          <li>Bonus streak harian</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-      <!-- MVP -->
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name mvp">◆ MVP</div>
-          <div class="rank-price">Rp 40.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [MVP] di chat</li>
-          <li>6 slot /sethome</li>
-          <li>TempFly 3 jam/hari</li>
-          <li>Kit MVP tiap hari</li>
-          <li>Gacha token +2/hari</li>
-          <li>Prioritas slot server</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-      <!-- CELESTIAL -->
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name celestial">✦ CELESTIAL</div>
-          <div class="rank-price">Rp 60.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Celestial] custom</li>
-          <li>8 slot /sethome</li>
-          <li>TempFly unlimited</li>
-          <li>Kit Celestial tiap hari</li>
-          <li>Gacha token +5/hari</li>
-          <li>Ekonomi bonus 1.5x</li>
-          <li>Efek partikel eksklusif</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-    </div>
-
-    <!-- BISCUIT ROW - TENGAH -->
-    <div style="display:grid;grid-template-columns:repeat(2,minmax(200px,320px));gap:1rem;justify-content:center;margin-top:1rem">
-
-      <!-- BISCUIT -->
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name biscuit">🍪 BISCUIT</div>
-          <div class="rank-price">Rp 85.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Biscuit] golden</li>
-          <li>10 slot /sethome</li>
-          <li>TempFly unlimited</li>
-          <li>Kit Biscuit tiap hari</li>
-          <li>Gacha token +8/hari</li>
-          <li>Ekonomi bonus 2x</li>
-          <li>Semua command VIP</li>
-          <li>Tag khusus di Discord</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-      <!-- BISCUIT+ -->
-      <div class="rank-card featured">
-        <div class="popular-badge">TERTINGGI</div>
-        <div class="rank-header">
-          <div class="rank-name biscuitplus">🍪+ BISCUIT+</div>
-          <div class="rank-price">Rp 120.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Biscuit+] glowing</li>
-          <li>Unlimited /sethome</li>
-          <li>TempFly unlimited</li>
-          <li>Kit Biscuit+ tiap hari</li>
-          <li>Gacha token +15/hari</li>
-          <li>Ekonomi bonus 3x</li>
-          <li>Semua command admin</li>
-          <li>Fishing rod eksklusif</li>
-          <li>Dukungan langsung admin</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-    </div>
-
-    <!-- INFO PEMBELIAN -->
-    <div style="margin-top:2rem;background:rgba(255,107,0,0.06);border:1px solid var(--orange-dark);border-radius:8px;padding:1.25rem 1.5rem;max-width:600px;margin-left:auto;margin-right:auto;text-align:center">
-      <p style="color:var(--orange);font-weight:800;margin-bottom:6px">📋 Cara Beli Rank</p>
-      <p style="color:var(--text-muted);font-size:14px;line-height:1.8">
-        1. Gabung Discord kami → 2. Buka channel <strong style="color:var(--orange)">#ticket</strong> → 3. Buat tiket & hubungi admin → 4. Transfer & rank aktif dalam 5 menit!
-      </p>
+    <div class="store-cta-btns">
+      <a href="store.html" class="btn-primary">⚔ Lihat Rank</a>
+      <a href="store.html#tab-coins" class="btn-secondary" onclick="localStorage.setItem('storeTab','coins')">🪙 Beli Coins</a>
     </div>
   </div>
 </div>
@@ -626,7 +455,6 @@
       Semua pembelian rank & item dilayani langsung oleh admin kami di Discord.
       Cepat, aman, dan ramah! Bergabung juga untuk info update server terbaru.
     </p>
-    <!-- DISCORD LINK -->
     <a href="https://discord.gg/DN5GVbu7MS" class="discord-btn" target="_blank">
       💬 Join Discord Sekarang
     </a>
@@ -681,14 +509,11 @@
     });
   }, { threshold: 0.08 });
 
-  // Original reveal targets
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  // Feature cards
   document.querySelectorAll('.feature-card').forEach(el => observer.observe(el));
-  // Rank cards
-  document.querySelectorAll('.rank-card').forEach(el => observer.observe(el));
-  // Discord box
   document.querySelectorAll('.discord-box').forEach(el => observer.observe(el));
+  document.querySelectorAll('.store-cta-inner').forEach(el => observer.observe(el));
+
   /* ── CUSTOM CURSOR ── */
   const dot  = document.getElementById('cur-dot');
   const ring = document.getElementById('cur-ring');
@@ -699,7 +524,6 @@
     dot.style.left = mx+'px';
     dot.style.top  = my+'px';
 
-    // spawn trail ember
     const t = document.createElement('div');
     t.className = 'cur-trail';
     const sz = 3 + Math.random()*5;
@@ -708,7 +532,6 @@
     setTimeout(()=>t.remove(), 500);
   });
 
-  // ring lags behind for smooth follow
   (function loopRing(){
     rx += (mx - rx) * 0.14;
     ry += (my - ry) * 0.14;
@@ -717,8 +540,7 @@
     requestAnimationFrame(loopRing);
   })();
 
-  // grow on interactive elements
-  const hoverEls = document.querySelectorAll('a,button,.rank-card,.feature-card,.staff-card,.ip-box');
+  const hoverEls = document.querySelectorAll('a,button,.feature-card,.ip-box');
   hoverEls.forEach(el => {
     el.addEventListener('mouseenter', ()=>{
       dot.style.width  = '18px';
@@ -738,7 +560,6 @@
     });
   });
 
-  // click burst
   document.addEventListener('mousedown', ()=>{
     dot.style.transform = 'translate(-50%,-50%) scale(0.6)';
     ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
