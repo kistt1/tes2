@@ -13,279 +13,443 @@
   --orange-dark:#CC5500;
   --orange-glow:rgba(255,107,0,0.15);
   --cream:#FFF8F0;
+  --bg:#E85A00;
+  --bg2:#D45000;
+  --bg3:#C04800;
   --dark:#1A0E00;
   --dark2:#2D1A00;
   --dark3:#3D2600;
-  --text:#FFF3E6;
-  --text-muted:#FFCB8C;
+  --text:#2A1400;
+  --text-muted:#7A4010;
+  --text-soft:#B06030;
   --gold:#FFD700;
-  --gold-dark:#B8860B;
+  --gold-dark:#B8960C;
+  --border:#F0C090;
+  --border-strong:#E07030;
+  --card-bg:#FFFFFF;
+  --card-bg2:#FFF6ED;
 }
-body{background:var(--dark);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden;position:relative}
+body{
+  background-color:#E85A00;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 4px 4px, 4px 4px;
+  color:var(--text);
+  font-family:'Nunito',sans-serif;
+  overflow-x:hidden;
+}
 *{cursor:none!important}
 
-/* ── FULL-PAGE BACKGROUND LAYER ── */
-#bg-layer{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:linear-gradient(180deg,#1A0E00 0%,#2D1A00 45%,#3D2600 80%,#2D1A00 100%);
-}
-#bg-layer::before{
-  content:'';position:absolute;inset:0;
-  background-image:
-    radial-gradient(ellipse at 15% 20%,rgba(255,107,0,0.12) 0%,transparent 50%),
-    radial-gradient(ellipse at 85% 70%,rgba(255,140,51,0.09) 0%,transparent 50%),
-    radial-gradient(ellipse at 50% 50%,rgba(255,107,0,0.06) 0%,transparent 40%);
-  animation:bgPulse 8s ease-in-out infinite alternate;
-}
-@keyframes bgPulse{
-  0%  {opacity:0.7}
-  100%{opacity:1}
-}
-#bg-pixel-grid{
-  position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,107,0,0.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,107,0,0.05) 1px,transparent 1px);
-  background-size:32px 32px;
-  animation:gridDrift 20s linear infinite;
-}
-#bg-embers{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-
-/* All page content sits above the fixed bg */
-nav,
-.store-hero,
-.tab-bar,
-.store-section,
-footer{position:relative;z-index:10}
-
 /* ── CURSOR ── */
-#cur-dot{position:fixed;top:0;left:0;z-index:99999;pointer-events:none;width:12px;height:12px;background:#FF6B00;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 10px 3px rgba(255,107,0,0.7);transition:transform 0.08s ease,width 0.15s,height 0.15s,background 0.15s}
-#cur-ring{position:fixed;top:0;left:0;z-index:99998;pointer-events:none;width:32px;height:32px;border:2px solid rgba(255,107,0,0.6);border-radius:50%;transform:translate(-50%,-50%);transition:transform 0.18s ease,width 0.2s,height 0.2s,border-color 0.2s}
-.cur-trail{position:fixed;top:0;left:0;z-index:99997;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);opacity:0;animation:trailFade 0.5s ease forwards}
-@keyframes trailFade{0%{opacity:0.7;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(0.2)}}
+#cur-dot{
+  position:fixed;top:0;left:0;z-index:99999;pointer-events:none;
+  width:12px;height:12px;background:#FFD700;border-radius:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 10px 3px rgba(255,215,0,0.7);
+  transition:transform .08s ease,width .15s ease,height .15s ease,background .15s ease;
+}
+#cur-ring{
+  position:fixed;top:0;left:0;z-index:99998;pointer-events:none;
+  width:32px;height:32px;border:2px solid rgba(255,215,0,0.6);border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:transform .18s ease,width .2s ease,height .2s ease,border-color .2s ease;
+}
+.cur-trail{
+  position:fixed;top:0;left:0;z-index:99997;pointer-events:none;
+  border-radius:50%;transform:translate(-50%,-50%);opacity:0;
+  animation:trailFade .5s ease forwards;
+}
+@keyframes trailFade{
+  0%{opacity:.7;transform:translate(-50%,-50%) scale(1);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.2);}
+}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,14,0,0.95);backdrop-filter:blur(6px);border-bottom:3px solid var(--orange-dark);display:flex;align-items:center;justify-content:space-between;padding:0.8rem 2rem}
-.nav-logo{font-family:'Press Start 2P',monospace;color:var(--orange);font-size:12px;text-shadow:0 0 12px rgba(255,107,0,0.5);display:flex;align-items:center;gap:10px;text-decoration:none}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(180,60,0,0.97);
+  border-bottom:3px solid #FF9900;
+  display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;
+  backdrop-filter:blur(8px);
+  box-shadow:0 2px 20px rgba(0,0,0,0.3);
+}
+.nav-logo{font-family:'Press Start 2P',monospace;color:#FFD700;font-size:12px;
+  text-shadow:0 0 12px rgba(255,215,0,.5);display:flex;align-items:center;gap:10px;text-decoration:none;}
 .nav-logo img{height:32px;width:auto}
 .nav-links{display:flex;gap:2rem}
-.nav-links a{color:var(--text-muted);text-decoration:none;font-weight:700;font-size:14px;transition:color 0.2s}
-.nav-links a:hover,.nav-links a.active{color:var(--orange)}
+.nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-weight:700;font-size:14px;transition:color .2s}
+.nav-links a:hover{color:#FFD700}
 
-/* ── HERO BANNER ── */
-.store-hero{
-  padding:7rem 2rem 3rem;
-  text-align:center;
-  background:transparent;
-  position:relative;overflow:hidden;
+/* ── PIXEL GRID OVERLAY (extra decoration) ── */
+.pixel-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridDrift 25s linear infinite;
 }
-.store-hero::before{content:none}
-/* hero local pixel grid removed — global one covers entire page */
-.pixel-grid{display:none}
-@keyframes gridDrift{0%{background-position:0 0}100%{background-position:32px 32px}}
-/* ember class kept for compatibility but global layer handles it */
-.embers{display:none}
-.ember{position:absolute;border-radius:50%;opacity:0;animation:floatUp var(--dur,6s) ease-in var(--delay,0s) infinite}
-@keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(1)}15%{opacity:0.8}80%{opacity:0.3}100%{opacity:0;transform:translateY(-120px) scale(0.3)}}
+@keyframes gridDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
 
-.store-badge{background:rgba(255,107,0,0.12);border:1px solid var(--orange-dark);color:var(--orange-light);font-size:11px;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:4px;margin-bottom:1.2rem;display:inline-block;text-transform:uppercase;position:relative;z-index:1}
-.store-title{font-family:'Press Start 2P',monospace;font-size:clamp(20px,4vw,38px);color:var(--orange);text-shadow:0 0 30px rgba(255,107,0,0.5),0 4px 0 #7a3300;line-height:1.4;position:relative;z-index:1;margin-bottom:0.5rem;animation:titlePulse 3s ease-in-out infinite}
-@keyframes titlePulse{0%,100%{text-shadow:0 0 30px rgba(255,107,0,0.5),0 4px 0 #7a3300}50%{text-shadow:0 0 60px rgba(255,107,0,0.9),0 4px 0 #7a3300}}
-.store-sub{color:var(--text-muted);font-size:15px;position:relative;z-index:1;margin-bottom:1rem}
+/* ── HERO STORE ── */
+.store-hero{
+  min-height:38vh;padding:7rem 2rem 3rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;
+  background:linear-gradient(180deg, rgba(220,80,0,0.7) 0%, rgba(180,50,0,0.5) 100%);
+}
+.store-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 60%,rgba(255,200,0,.12) 0%,transparent 70%);
+}
+.hero-badge{
+  background:rgba(255,215,0,.15);border:1px solid #FFD700;
+  color:#FFD700;font-size:11px;font-weight:700;letter-spacing:2px;
+  padding:6px 16px;border-radius:4px;margin-bottom:1.2rem;
+  text-transform:uppercase;position:relative;z-index:1;
+  text-shadow:0 1px 4px rgba(0,0,0,0.4);
+}
+.store-hero h1{
+  font-family:'Press Start 2P',monospace;font-size:clamp(20px,4vw,36px);
+  color:#FFD700;position:relative;z-index:1;
+  text-shadow:0 0 30px rgba(255,215,0,.5),0 4px 0 rgba(0,0,0,0.4);
+  animation:titlePulse 3s ease-in-out infinite;
+}
+@keyframes titlePulse{
+  0%,100%{text-shadow:0 0 20px rgba(255,215,0,.4),0 4px 0 rgba(0,0,0,0.4);}
+  50%{text-shadow:0 0 50px rgba(255,215,0,.7),0 4px 0 rgba(0,0,0,0.4);}
+}
+.store-hero p{
+  color:rgba(255,255,255,0.85);font-size:15px;max-width:460px;line-height:1.8;
+  margin-top:.8rem;position:relative;z-index:1;
+  text-shadow:0 1px 3px rgba(0,0,0,0.4);
+}
 
-/* ── TAB SWITCHER ── */
-.tab-bar{
-  display:flex;justify-content:center;gap:1rem;
-  padding:2rem 2rem 0;
-  position:sticky;top:67px;z-index:90;
-  background:rgba(26,14,0,0.88);
-  backdrop-filter:blur(8px);
-  border-bottom:2px solid var(--orange-dark);
+/* ── TABS ── */
+.tabs-wrapper{
+  position:relative;z-index:2;
+  display:flex;justify-content:center;
+  padding:2rem 2rem 0;gap:.5rem;flex-wrap:wrap;
 }
 .tab-btn{
-  font-family:'Press Start 2P',monospace;font-size:10px;color:var(--text-muted);
-  background:transparent;border:none;padding:12px 28px;cursor:pointer;
-  border-bottom:3px solid transparent;margin-bottom:-2px;
-  transition:color 0.2s,border-color 0.2s;letter-spacing:1px;
-}
-.tab-btn:hover{color:var(--orange-light)}
-.tab-btn.active{color:var(--orange);border-bottom-color:var(--orange)}
-
-/* ── SECTION WRAPPER ── */
-.store-section{display:none;padding:4rem 2rem;max-width:1100px;margin:0 auto}
-.store-section.active{display:block}
-.sec-head{text-align:center;margin-bottom:2.5rem}
-.sec-title{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--orange);margin-bottom:0.5rem}
-.sec-sub{color:var(--text-muted);font-size:14px}
-
-/* ── RANK CARDS ── */
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
-.rank-card{
-  background:rgba(45,26,0,0.82);border-radius:10px;overflow:hidden;
-  border:1px solid var(--orange-dark);
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;
+  padding:10px 28px;border-radius:6px 6px 0 0;border:2px solid rgba(255,255,255,0.3);
+  border-bottom:none;background:rgba(180,60,0,0.6);color:rgba(255,255,255,0.7);
+  transition:all .2s;letter-spacing:.5px;
   backdrop-filter:blur(4px);
-  transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;
+}
+.tab-btn:hover{color:#FFD700;border-color:rgba(255,215,0,0.5);background:rgba(200,80,0,0.7)}
+.tab-btn.active{background:rgba(210,90,0,0.85);color:#FFD700;border-color:#FFD700}
+
+/* ── MAIN CONTENT ── */
+main{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;padding:0 2rem 6rem;
+}
+
+/* ── RANK PANEL ── */
+.rank-intro{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.3);
+  border-radius:0 8px 8px 8px;
+  padding:1.5rem 2rem;margin-bottom:2.5rem;
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+  backdrop-filter:blur(6px);
+}
+.rank-intro-icon{font-size:28px}
+.rank-intro p{color:rgba(255,255,255,0.85);font-size:14px;line-height:1.7;text-shadow:0 1px 2px rgba(0,0,0,0.3)}
+.rank-intro strong{color:#FFD700}
+
+/* ── RANK CARDS GRID ── */
+.ranks-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+}
+
+.rank-card{
+  background:var(--card-bg);border:2px solid rgba(255,255,255,0.2);
+  border-radius:12px;overflow:hidden;
   position:relative;
   opacity:0;transform:translateY(28px);
+  transition:opacity .5s ease,transform .5s ease,border-color .2s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(0,0,0,0.25);
 }
 .rank-card.visible{opacity:1;transform:translateY(0)}
-.rank-card:hover{transform:translateY(-8px)!important;border-color:var(--orange);box-shadow:0 16px 36px rgba(255,107,0,0.22)}
-.rank-card.featured{border:2px solid var(--orange)}
-.popular-badge{position:absolute;top:10px;right:10px;background:var(--orange);color:var(--dark);font-size:8px;font-weight:800;padding:4px 8px;border-radius:3px;font-family:'Press Start 2P',monospace;animation:badgePulse 2s ease-in-out infinite}
-@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,0,0.5)}50%{box-shadow:0 0 0 6px rgba(255,107,0,0)}}
-.rank-header{padding:1.5rem;background:rgba(45,26,0,0.82);border-bottom:1px solid var(--orange-dark);text-align:center}
-.rank-name{font-family:'Press Start 2P',monospace;font-size:11px;margin-bottom:8px}
-.rank-name.knight{color:#A0A0B0}
-.rank-name.vip{color:#57FF6E}
-.rank-name.mvp{color:#5BE8FF}
-.rank-name.celestial{color:#C084FC}
-.rank-name.biscuit{color:#FFD700}
-.rank-name.biscuitplus{color:#FF6B00;text-shadow:0 0 10px rgba(255,107,0,0.8)}
-.rank-price{font-size:24px;font-weight:900;color:var(--orange)}
-.rank-price span{font-size:12px;font-weight:600;color:var(--text-muted)}
-.rank-perks{padding:1rem 1.25rem;list-style:none}
-.rank-perks li{font-size:13px;color:var(--text-muted);padding:6px 0;border-bottom:1px solid rgba(255,107,0,0.08);display:flex;align-items:center;gap:8px}
-.rank-perks li::before{content:'▸';color:var(--orange);font-size:10px;flex-shrink:0}
-.rank-perks li:last-child{border-bottom:none}
-.rank-btn{
-  display:block;margin:0 1rem 1rem;
-  background:var(--orange);color:var(--dark);text-align:center;
-  padding:12px;border-radius:6px;text-decoration:none;font-weight:800;font-size:13px;
-  transition:background 0.2s;box-shadow:0 3px 0 var(--orange-dark);
-  position:relative;overflow:hidden;
-}
-.rank-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);transform:translateX(-100%);animation:btnShimmer 3s ease-in-out infinite}
-@keyframes btnShimmer{0%,60%{transform:translateX(-100%)}80%{transform:translateX(100%)}100%{transform:translateX(100%)}}
-.rank-btn:hover{background:var(--orange-light)}
+.rank-card:hover{border-color:var(--orange);box-shadow:0 8px 32px rgba(0,0,0,0.35);transform:translateY(-5px) !important;}
 
-/* ── BISCUIT ROW ── */
-.biscuit-row{display:grid;grid-template-columns:repeat(2,minmax(200px,320px));gap:1rem;justify-content:center;margin-top:1rem}
+/* Popular badge */
+.rank-card.popular::before{
+  content:'🔥 POPULER';
+  position:absolute;top:12px;right:-1px;
+  background:var(--orange);color:#fff;
+  font-size:9px;font-weight:900;letter-spacing:1px;
+  padding:4px 10px;border-radius:4px 0 0 4px;
+  font-family:'Press Start 2P',monospace;
+}
+
+.rank-header{
+  padding:1.8rem 1.5rem 1.2rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  position:relative;
+}
+.rank-icon{font-size:38px;margin-bottom:.5rem;filter:drop-shadow(0 0 8px rgba(255,107,0,.4));}
+.rank-name{
+  font-family:'Press Start 2P',monospace;font-size:11px;
+  color:var(--orange);margin-bottom:.3rem;letter-spacing:1px;
+}
+.rank-tagline{font-size:12px;color:var(--text-soft);font-weight:600}
+
+.rank-price-box{
+  background:rgba(255,107,0,.06);
+  border-top:1px solid rgba(255,107,0,.2);
+  border-bottom:1px solid rgba(255,107,0,.2);
+  padding:1rem 1.5rem;text-align:center;
+}
+.rank-price{
+  font-family:'Press Start 2P',monospace;font-size:16px;color:var(--orange);
+}
+.rank-price-note{font-size:11px;color:var(--text-soft);margin-top:4px}
+
+.rank-perks{padding:1.2rem 1.5rem}
+.perk{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:12px;color:var(--text-muted);line-height:1.6;
+  margin-bottom:.55rem;
+}
+.perk-icon{color:var(--orange);flex-shrink:0;margin-top:1px}
+
+.rank-buy-btn{
+  display:block;width:calc(100% - 3rem);margin:0 1.5rem 1.5rem;
+  background:var(--orange);color:#fff;font-weight:900;font-size:12px;
+  padding:12px;border-radius:6px;text-decoration:none;text-align:center;
+  border:none;box-shadow:0 4px 0 var(--orange-dark);
+  transition:all .15s;position:relative;overflow:hidden;
+}
+.rank-buy-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transform:translateX(-100%);animation:shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer{0%,60%{transform:translateX(-100%)}80%{transform:translateX(100%)}100%{transform:translateX(100%)}}
+.rank-buy-btn:hover{background:var(--orange-light);transform:translateY(-2px)}
+.rank-buy-btn:active{transform:translateY(2px);box-shadow:none}
+
+/* ── RANK COLOR THEMING ── */
+.rank-card.tier-member .rank-header{background:linear-gradient(135deg,#FFF3E6,#FFE4C0)}
+.rank-card.tier-vip    .rank-header{background:linear-gradient(135deg,#FFFDE8,#FFF5C0)}
+.rank-card.tier-vip .rank-icon{filter:drop-shadow(0 0 10px #ffd700);}
+.rank-card.tier-vip .rank-name{color:#B8960C}
+.rank-card.tier-vip .rank-price{color:#B8960C}
+.rank-card.tier-vip .perk-icon{color:#B8960C}
+.rank-card.tier-vip .rank-buy-btn{background:#FFD700;color:#3a2800;box-shadow:0 4px 0 #B8960C}
+.rank-card.tier-vip .rank-buy-btn:hover{background:#ffe44d}
+.rank-card.tier-mvp   .rank-header{background:linear-gradient(135deg,#EEF4FF,#D8EAFF)}
+.rank-card.tier-mvp .rank-icon{filter:drop-shadow(0 0 10px #4a90d9);}
+.rank-card.tier-mvp .rank-name{color:#1a5fa8}
+.rank-card.tier-mvp .rank-price{color:#1a5fa8}
+.rank-card.tier-mvp .perk-icon{color:#1a5fa8}
+.rank-card.tier-mvp .rank-buy-btn{background:#4a90d9;color:#fff;box-shadow:0 4px 0 #2a60a0}
+.rank-card.tier-mvp .rank-buy-btn:hover{background:#5fa3e8}
+.rank-card.tier-elite  .rank-header{background:linear-gradient(135deg,#F8EEFF,#EEDAFF)}
+.rank-card.tier-elite .rank-icon{filter:drop-shadow(0 0 10px #9b3dbf);}
+.rank-card.tier-elite .rank-name{color:#7a1fa0}
+.rank-card.tier-elite .rank-price{color:#7a1fa0}
+.rank-card.tier-elite .perk-icon{color:#7a1fa0}
+.rank-card.tier-elite .rank-buy-btn{background:#9b3dbf;color:#fff;box-shadow:0 4px 0 #6b1a8f}
+.rank-card.tier-elite .rank-buy-btn:hover{background:#b050d8}
 
 /* ── COINS SECTION ── */
-.coins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem}
+.coins-intro{
+  background:rgba(0,0,0,0.25);border:1px solid rgba(255,215,0,0.4);border-radius:0 8px 8px 8px;
+  padding:1.5rem 2rem;margin-bottom:2.5rem;
+  display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;
+  backdrop-filter:blur(6px);
+}
+.coins-intro p{color:rgba(255,255,255,0.85);font-size:14px;line-height:1.7;text-shadow:0 1px 2px rgba(0,0,0,0.3)}
+.coins-intro strong{color:#FFD700}
+
+.coins-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1.2rem;margin-bottom:3rem;
+}
+
 .coin-card{
-  background:rgba(45,26,0,0.82);border:1px solid var(--orange-dark);border-radius:12px;
-  overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;
-  position:relative;backdrop-filter:blur(4px);
-  opacity:0;transform:translateY(28px);
-  display:flex;flex-direction:column;
+  background:rgba(30,10,0,0.6);border:2px solid rgba(255,150,50,0.4);border-radius:12px;
+  overflow:hidden;text-align:center;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .45s ease,transform .45s ease,border-color .2s,box-shadow .2s;
+  backdrop-filter:blur(4px);
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
 }
 .coin-card.visible{opacity:1;transform:translateY(0)}
-.coin-card:hover{transform:translateY(-8px)!important;border-color:var(--gold);box-shadow:0 16px 36px rgba(255,215,0,0.18)}
-.coin-card.best-value{border:2px solid var(--gold)}
-.coin-card.best-value .coin-badge{display:block}
-.coin-badge{
-  display:none;
-  position:absolute;top:10px;right:10px;
-  background:var(--gold);color:var(--dark);
-  font-size:8px;font-weight:800;padding:4px 8px;border-radius:3px;
-  font-family:'Press Start 2P',monospace;
-  animation:badgePulse 2s ease-in-out infinite;
+.coin-card:hover{border-color:var(--orange);box-shadow:0 0 24px rgba(255,107,0,.3);transform:translateY(-5px) !important;}
+
+.coin-card.best-value{border-color:#FFD700;position:relative}
+.coin-card.best-value::before{
+  content:'⭐ BEST VALUE';
+  position:absolute;top:0;left:0;right:0;
+  background:#FFD700;color:#3a2800;
+  font-size:8px;font-weight:900;letter-spacing:1px;
+  padding:5px;font-family:'Press Start 2P',monospace;
 }
-.coin-header{
-  padding:2rem 1.5rem 1rem;
-  background:rgba(45,26,0,0.82);
-  border-bottom:1px solid rgba(255,215,0,0.15);
-  text-align:center;
+.coin-card.best-value .coin-top{padding-top:2.4rem}
+
+.coin-top{
+  padding:1.8rem 1.5rem 1.2rem;
+  background:linear-gradient(135deg,rgba(30,10,0,0.8),rgba(60,20,0,0.8));
 }
-.coin-emoji{
-  font-size:40px;margin-bottom:0.75rem;display:block;
-  animation:coinSpin var(--spin,4s) ease-in-out infinite;
+.coin-icon{font-size:36px;margin-bottom:.5rem;animation:coinSpin 4s ease-in-out infinite}
+@keyframes coinSpin{
+  0%,100%{transform:rotateY(0deg)}
+  40%{transform:rotateY(180deg)}
+  60%{transform:rotateY(180deg)}
 }
-@keyframes coinSpin{0%,100%{transform:rotateY(0deg)}45%{transform:rotateY(180deg)}50%{transform:rotateY(180deg)}95%{transform:rotateY(0deg)}}
 .coin-amount{
-  font-family:'Press Start 2P',monospace;font-size:14px;color:var(--gold);
-  text-shadow:0 0 12px rgba(255,215,0,0.6);margin-bottom:4px;
+  font-family:'Press Start 2P',monospace;font-size:18px;color:#FFD700;
+  display:flex;align-items:center;justify-content:center;gap:6px;
 }
-.coin-bonus{
-  font-size:12px;font-weight:700;color:#57FF6E;
-  min-height:18px;
-}
-.coin-price{
-  padding:1.25rem 1.5rem;
-  font-size:22px;font-weight:900;color:var(--orange);text-align:center;
-}
-.coin-price span{font-size:12px;font-weight:600;color:var(--text-muted)}
-.coin-perks{padding:0 1.25rem 1rem;list-style:none}
-.coin-perks li{font-size:12px;color:var(--text-muted);padding:5px 0;border-bottom:1px solid rgba(255,215,0,0.07);display:flex;align-items:center;gap:8px}
-.coin-perks li::before{content:'◈';color:var(--gold);font-size:10px;flex-shrink:0}
-.coin-perks li:last-child{border-bottom:none}
-.coin-btn{
-  display:block;margin:auto 1rem 1rem;
-  background:linear-gradient(135deg,#B8860B,#FFD700);color:var(--dark);text-align:center;
-  padding:12px;border-radius:6px;text-decoration:none;font-weight:800;font-size:13px;
-  transition:filter 0.2s,transform 0.15s;box-shadow:0 3px 0 #7a5c00;
-  position:relative;overflow:hidden;
-}
-.coin-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transform:translateX(-100%);animation:btnShimmer 3s ease-in-out 0.5s infinite}
-.coin-btn:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.coin-amount span{font-size:12px;color:rgba(255,255,255,0.6)}
 
-/* ── COINS INFO BOX ── */
-.coin-info-box{
-  background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.25);
-  border-radius:10px;padding:1.5rem;max-width:680px;margin:2.5rem auto 0;text-align:center;
+.coin-price-row{
+  padding:.9rem 1.5rem;
+  background:rgba(255,107,0,.1);
+  border-top:1px solid rgba(255,107,0,.2);
+  border-bottom:1px solid rgba(255,107,0,.2);
 }
-.coin-info-box h3{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--gold);margin-bottom:1rem}
-.coin-info-box p{color:var(--text-muted);font-size:13px;line-height:1.9}
-.coin-info-box strong{color:var(--orange)}
-.coin-uses{display:flex;flex-wrap:wrap;justify-content:center;gap:0.75rem;margin-top:1.25rem}
-.coin-use-tag{
-  background:rgba(255,107,0,0.1);border:1px solid var(--orange-dark);
-  color:var(--text-muted);font-size:12px;font-weight:700;
-  padding:6px 14px;border-radius:20px;
+.coin-price{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--orange)}
+.coin-per{font-size:11px;color:rgba(255,255,255,0.5);margin-top:3px}
+
+.coin-buy-btn{
+  display:block;width:calc(100% - 2.4rem);margin:.9rem 1.2rem 1.2rem;
+  background:var(--orange);color:#1a0a00;font-weight:900;font-size:12px;
+  padding:10px;border-radius:6px;text-decoration:none;text-align:center;
+  border:none;box-shadow:0 4px 0 var(--orange-dark);
+  transition:all .15s;position:relative;overflow:hidden;
+}
+.coin-buy-btn::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:translateX(-100%);animation:shimmer 3s ease-in-out infinite;
+}
+.coin-buy-btn:hover{background:var(--orange-light);transform:translateY(-2px)}
+.coin-buy-btn:active{transform:translateY(2px);box-shadow:none}
+
+/* Coins usage section */
+.coins-use{
+  background:rgba(0,0,0,0.25);border:1px solid rgba(255,150,50,0.3);border-radius:10px;
+  padding:2rem;margin-top:1rem;backdrop-filter:blur(6px);
+}
+.coins-use-title{
+  font-family:'Press Start 2P',monospace;font-size:11px;color:#FFD700;
+  margin-bottom:1.2rem;
+}
+.coins-use-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;
+}
+.coins-use-item{
+  background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.2);
+  border-radius:8px;padding:1rem;text-align:center;
+}
+.cui-icon{font-size:24px;margin-bottom:.5rem}
+.cui-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:.3rem;text-shadow:0 1px 2px rgba(0,0,0,0.3)}
+.cui-desc{font-size:11px;color:rgba(255,255,255,0.65);line-height:1.6}
+
+/* ── HOW TO BUY ── */
+.how-box{
+  background:rgba(0,0,0,0.25);border:1px solid rgba(255,150,50,0.3);border-radius:10px;
+  padding:2rem;margin-top:2rem;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s,transform .6s;
+  backdrop-filter:blur(6px);
+}
+.how-box.visible{opacity:1;transform:translateY(0)}
+.how-title{font-family:'Press Start 2P',monospace;font-size:11px;color:#FFD700;margin-bottom:1.5rem;text-align:center}
+.steps{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center}
+.step{
+  flex:1;min-width:160px;max-width:210px;text-align:center;
+}
+.step-num{
+  width:40px;height:40px;background:var(--orange);color:#fff;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Press Start 2P',monospace;font-size:13px;
+  margin:0 auto .8rem;box-shadow:0 4px 0 var(--orange-dark);
+}
+.step-title{font-weight:800;font-size:14px;color:#fff;margin-bottom:.4rem;text-shadow:0 1px 2px rgba(0,0,0,0.3)}
+.step-desc{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.7}
+.step-arrow{
+  align-self:center;color:rgba(255,215,0,0.7);font-size:24px;
+  padding-top:0;display:flex;align-items:center;
 }
 
-/* ── BUY INFO BOX ── */
-.buy-info{
-  margin-top:2rem;
-  background:rgba(255,107,0,0.06);border:1px solid var(--orange-dark);
-  border-radius:8px;padding:1.25rem 1.5rem;
-  max-width:600px;margin-left:auto;margin-right:auto;text-align:center;
+/* ── DISCORD CTA ── */
+.store-discord{
+  margin-top:3rem;text-align:center;
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(255,150,50,0.3);border-radius:12px;
+  padding:3rem 2rem;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s,transform .6s;
+  backdrop-filter:blur(6px);
 }
-.buy-info p:first-child{color:var(--orange);font-weight:800;margin-bottom:6px}
-.buy-info p{color:var(--text-muted);font-size:14px;line-height:1.8}
-.buy-info strong{color:var(--orange)}
+.store-discord.visible{opacity:1;transform:translateY(0)}
+.discord-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#5865F2;color:white;padding:14px 32px;border-radius:8px;
+  text-decoration:none;font-weight:800;font-size:15px;transition:opacity .2s,transform .2s;
+  box-shadow:0 4px 0 #3a45c0;margin-top:1rem;
+}
+.discord-btn:hover{opacity:.9;transform:translateY(-2px)}
+.sd-title{font-family:'Press Start 2P',monospace;font-size:13px;color:#FFD700;margin-bottom:.8rem}
+.sd-desc{color:rgba(255,255,255,0.75);font-size:14px;line-height:1.8;max-width:440px;margin:0 auto;text-shadow:0 1px 2px rgba(0,0,0,0.3)}
 
-/* ── FOOTER ── */
-footer{background:rgba(45,26,0,0.85);backdrop-filter:blur(6px);border-top:2px solid var(--orange-dark);text-align:center;padding:2rem;color:var(--text-muted);font-size:13px}
-footer strong{color:var(--orange)}
+/* ── TAB CONTENT ── */
+.tab-content{display:none}
+.tab-content.active{display:block}
+.tab-panel-wrap{
+  background:rgba(150,50,0,0.35);border:2px solid rgba(255,215,0,0.4);
+  border-radius:0 10px 10px 10px;
+  padding:2rem;margin-bottom:2rem;
+  backdrop-filter:blur(6px);
+}
 
-/* ── STAGGER TRANSITIONS ── */
-.coins-grid .coin-card:nth-child(1){transition:opacity 0.55s 0.05s ease,transform 0.55s 0.05s ease,border-color 0.2s,box-shadow 0.3s}
-.coins-grid .coin-card:nth-child(2){transition:opacity 0.55s 0.12s ease,transform 0.55s 0.12s ease,border-color 0.2s,box-shadow 0.3s}
-.coins-grid .coin-card:nth-child(3){transition:opacity 0.55s 0.19s ease,transform 0.55s 0.19s ease,border-color 0.2s,box-shadow 0.3s}
-.coins-grid .coin-card:nth-child(4){transition:opacity 0.55s 0.26s ease,transform 0.55s 0.26s ease,border-color 0.2s,box-shadow 0.3s}
-.coins-grid .coin-card:nth-child(5){transition:opacity 0.55s 0.33s ease,transform 0.55s 0.33s ease,border-color 0.2s,box-shadow 0.3s}
-.coins-grid .coin-card:nth-child(6){transition:opacity 0.55s 0.40s ease,transform 0.55s 0.40s ease,border-color 0.2s,box-shadow 0.3s}
-.shop-grid .rank-card:nth-child(1){transition:opacity 0.55s 0.05s ease,transform 0.55s 0.05s ease,border-color 0.2s,box-shadow 0.3s}
-.shop-grid .rank-card:nth-child(2){transition:opacity 0.55s 0.12s ease,transform 0.55s 0.12s ease,border-color 0.2s,box-shadow 0.3s}
-.shop-grid .rank-card:nth-child(3){transition:opacity 0.55s 0.19s ease,transform 0.55s 0.19s ease,border-color 0.2s,box-shadow 0.3s}
-.shop-grid .rank-card:nth-child(4){transition:opacity 0.55s 0.26s ease,transform 0.55s 0.26s ease,border-color 0.2s,box-shadow 0.3s}
-.biscuit-row .rank-card:nth-child(1){transition:opacity 0.55s 0.33s ease,transform 0.55s 0.33s ease,border-color 0.2s,box-shadow 0.3s}
-.biscuit-row .rank-card:nth-child(2){transition:opacity 0.55s 0.40s ease,transform 0.55s 0.40s ease,border-color 0.2s,box-shadow 0.3s}
+/* ── STAGGER DELAYS ── */
+.ranks-grid .rank-card:nth-child(1){transition-delay:.05s}
+.ranks-grid .rank-card:nth-child(2){transition-delay:.1s}
+.ranks-grid .rank-card:nth-child(3){transition-delay:.15s}
+.ranks-grid .rank-card:nth-child(4){transition-delay:.2s}
+.coins-grid .coin-card:nth-child(1){transition-delay:.05s}
+.coins-grid .coin-card:nth-child(2){transition-delay:.1s}
+.coins-grid .coin-card:nth-child(3){transition-delay:.15s}
+.coins-grid .coin-card:nth-child(4){transition-delay:.2s}
+.coins-grid .coin-card:nth-child(5){transition-delay:.25s}
+.coins-grid .coin-card:nth-child(6){transition-delay:.3s}
 
-/* ── DIVIDER ── */
-.divider{height:2px;background:linear-gradient(90deg,transparent,var(--orange-dark),transparent);margin:0 auto;max-width:200px;border-radius:999px;margin-bottom:2rem}
+footer{
+  background:rgba(0,0,0,0.4);border-top:2px solid rgba(255,150,50,0.4);
+  text-align:center;padding:2rem;color:rgba(255,255,255,0.65);font-size:13px;
+  position:relative;z-index:2;
+  backdrop-filter:blur(4px);
+}
+footer strong{color:#FFD700}
 </style>
 </head>
 <body>
 
 <div id="cur-dot"></div>
 <div id="cur-ring"></div>
+<div class="pixel-grid"></div>
 
-<!-- GLOBAL BACKGROUND LAYERS -->
-<div id="bg-layer"></div>
-<div id="bg-pixel-grid"></div>
-<div id="bg-embers"></div>
-
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="logo.png" alt="Cookies Network"> COOKIES NETWORK
   </a>
   <div class="nav-links">
     <a href="index.html#fitur">Fitur</a>
-    <a href="store.html" class="active">Store</a>
+    <a href="store.html" style="color:#FFD700">Store</a>
     <a href="index.html#discord">Discord</a>
     <a href="about.html">About</a>
     <a href="staff.html">Staff</a>
@@ -294,276 +458,330 @@ footer strong{color:var(--orange)}
 
 <!-- HERO -->
 <div class="store-hero">
-  <div class="pixel-grid"></div>
-  <div class="embers" id="embers"></div>
-  <div class="store-badge">🛒 Toko Resmi Cookies Network</div>
-  <h1 class="store-title">STORE</h1>
-  <p class="store-sub">Dukung server & tingkatkan pengalamanmu bermain!</p>
+  <div class="hero-badge">🛒 Official Store</div>
+  <h1>COOKIES STORE</h1>
+  <p>Dukung server & upgrade pengalamanmu dengan Rank dan Cookies Coins.<br>Semua transaksi aman melalui Discord Admin kami.</p>
 </div>
 
-<!-- TAB BAR -->
-<div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('ranks',this)">⚔ RANK</button>
-  <button class="tab-btn" onclick="switchTab('coins',this)">🪙 COINS</button>
+<!-- TABS -->
+<div class="tabs-wrapper">
+  <button class="tab-btn active" data-tab="ranks">⚔ Rank</button>
+  <button class="tab-btn" data-tab="coins">🪙 Cookies Coins</button>
 </div>
 
-<!-- ═══════════════ RANK SECTION ═══════════════ -->
-<div class="store-section active" id="tab-ranks">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="sec-head">
-      <div class="sec-title">TOKO RANK</div>
-      <p class="sec-sub">Pembelian semua rank dilayani langsung via Discord 🍪</p>
-    </div>
-    <div class="shop-grid">
+<main>
 
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name knight">⚔ KNIGHT</div>
-          <div class="rank-price">Rp 15.000 <span>/ bulan</span></div>
+  <!-- ══════════ RANKS TAB ══════════ -->
+  <div class="tab-content active" id="tab-ranks">
+    <div class="tab-panel-wrap">
+
+      <div class="rank-intro">
+        <div class="rank-intro-icon">⚔️</div>
+        <div>
+          <p>Rank memberikan <strong>keuntungan permanen</strong> di server. Setiap rank lebih tinggi mewarisi semua keuntungan rank sebelumnya. Beli rank sekali, nikmati selamanya!</p>
         </div>
-        <ul class="rank-perks">
-          <li>Prefix [Knight] di chat</li>
-          <li>2 slot /sethome</li>
-          <li>TempFly 30 menit/hari</li>
-          <li>Kit Knight tiap 3 hari</li>
-          <li>Warna nama di chat</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
       </div>
 
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name vip">★ VIP</div>
-          <div class="rank-price">Rp 25.000 <span>/ bulan</span></div>
+      <div class="ranks-grid">
+
+        <!-- MEMBER -->
+        <div class="rank-card tier-member">
+          <div class="rank-header">
+            <div class="rank-icon">🍪</div>
+            <div class="rank-name">MEMBER</div>
+            <div class="rank-tagline">Mulai petualanganmu</div>
+          </div>
+          <div class="rank-price-box">
+            <div class="rank-price">GRATIS</div>
+            <div class="rank-price-note">Diberikan otomatis</div>
+          </div>
+          <div class="rank-perks">
+            <div class="perk"><span class="perk-icon">✦</span>Akses ke semua fitur dasar server</div>
+            <div class="perk"><span class="perk-icon">✦</span>Land Claim standar</div>
+            <div class="perk"><span class="perk-icon">✦</span>Player Shop (1 toko)</div>
+            <div class="perk"><span class="perk-icon">✦</span>Daily streak reward</div>
+            <div class="perk"><span class="perk-icon">✦</span>Vote reward harian</div>
+          </div>
+          <span class="rank-buy-btn" style="background:rgba(100,60,0,0.5);color:rgba(255,255,255,0.4);box-shadow:none;pointer-events:none;">Default Rank</span>
         </div>
-        <ul class="rank-perks">
-          <li>Prefix [VIP] di chat</li>
-          <li>4 slot /sethome</li>
-          <li>TempFly 1 jam/hari</li>
-          <li>Kit VIP tiap 2 hari</li>
-          <li>Akses Auction House</li>
-          <li>Bonus streak harian</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
+
+        <!-- VIP -->
+        <div class="rank-card tier-vip">
+          <div class="rank-header">
+            <div class="rank-icon">⭐</div>
+            <div class="rank-name">VIP</div>
+            <div class="rank-tagline">Pemain setia</div>
+          </div>
+          <div class="rank-price-box">
+            <div class="rank-price">Rp 25.000</div>
+            <div class="rank-price-note">Pembayaran via Discord</div>
+          </div>
+          <div class="rank-perks">
+            <div class="perk"><span class="perk-icon">✦</span>Semua benefit Member</div>
+            <div class="perk"><span class="perk-icon">✦</span>TempFly 30 menit/hari</div>
+            <div class="perk"><span class="perk-icon">✦</span>Player Shop (3 toko)</div>
+            <div class="perk"><span class="perk-icon">✦</span>Prefix &amp; warna nama [VIP]</div>
+            <div class="perk"><span class="perk-icon">✦</span>Bonus 50 Cookies Coins/minggu</div>
+            <div class="perk"><span class="perk-icon">✦</span>Akses warp VIP khusus</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="rank-buy-btn" target="_blank">💬 Beli di Discord</a>
+        </div>
+
+        <!-- MVP -->
+        <div class="rank-card tier-mvp popular">
+          <div class="rank-header">
+            <div class="rank-icon">💎</div>
+            <div class="rank-name">MVP</div>
+            <div class="rank-tagline">Level lebih tinggi</div>
+          </div>
+          <div class="rank-price-box">
+            <div class="rank-price">Rp 50.000</div>
+            <div class="rank-price-note">Pembayaran via Discord</div>
+          </div>
+          <div class="rank-perks">
+            <div class="perk"><span class="perk-icon">✦</span>Semua benefit VIP</div>
+            <div class="perk"><span class="perk-icon">✦</span>TempFly 1 jam/hari</div>
+            <div class="perk"><span class="perk-icon">✦</span>Player Shop (7 toko)</div>
+            <div class="perk"><span class="perk-icon">✦</span>Prefix &amp; warna nama [MVP]</div>
+            <div class="perk"><span class="perk-icon">✦</span>Bonus 120 Cookies Coins/minggu</div>
+            <div class="perk"><span class="perk-icon">✦</span>Priority support di Discord</div>
+            <div class="perk"><span class="perk-icon">✦</span>Diskon 10% di Auction House</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="rank-buy-btn" target="_blank">💬 Beli di Discord</a>
+        </div>
+
+        <!-- ELITE -->
+        <div class="rank-card tier-elite">
+          <div class="rank-header">
+            <div class="rank-icon">👑</div>
+            <div class="rank-name">ELITE</div>
+            <div class="rank-tagline">Penguasa server</div>
+          </div>
+          <div class="rank-price-box">
+            <div class="rank-price">Rp 100.000</div>
+            <div class="rank-price-note">Pembayaran via Discord</div>
+          </div>
+          <div class="rank-perks">
+            <div class="perk"><span class="perk-icon">✦</span>Semua benefit MVP</div>
+            <div class="perk"><span class="perk-icon">✦</span>TempFly tanpa batas harian</div>
+            <div class="perk"><span class="perk-icon">✦</span>Player Shop tanpa batas</div>
+            <div class="perk"><span class="perk-icon">✦</span>Prefix custom [ELITE] + partikel</div>
+            <div class="perk"><span class="perk-icon">✦</span>Bonus 300 Cookies Coins/minggu</div>
+            <div class="perk"><span class="perk-icon">✦</span>Akses event eksklusif Elite</div>
+            <div class="perk"><span class="perk-icon">✦</span>Diskon 20% di Auction House</div>
+            <div class="perk"><span class="perk-icon">✦</span>Custom join message</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="rank-buy-btn" target="_blank">💬 Beli di Discord</a>
+        </div>
+
+      </div><!-- /ranks-grid -->
+
+      <!-- HOW TO BUY RANK -->
+      <div class="how-box">
+        <div class="how-title">🛒 CARA MEMBELI RANK</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-title">Join Discord</div>
+            <div class="step-desc">Masuk ke Discord server kami lewat tombol di bawah</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-title">Buka #beli-rank</div>
+            <div class="step-desc">Pergi ke channel pembelian dan mention admin</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-title">Transfer</div>
+            <div class="step-desc">Admin kirimkan info pembayaran (QRIS / Transfer bank)</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-title">Rank Aktif!</div>
+            <div class="step-desc">Setelah konfirmasi, rank langsung diaktifkan di server</div>
+          </div>
+        </div>
       </div>
 
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name mvp">◆ MVP</div>
-          <div class="rank-price">Rp 40.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [MVP] di chat</li>
-          <li>6 slot /sethome</li>
-          <li>TempFly 3 jam/hari</li>
-          <li>Kit MVP tiap hari</li>
-          <li>Gacha token +2/hari</li>
-          <li>Prioritas slot server</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name celestial">✦ CELESTIAL</div>
-          <div class="rank-price">Rp 60.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Celestial] custom</li>
-          <li>8 slot /sethome</li>
-          <li>TempFly unlimited</li>
-          <li>Kit Celestial tiap hari</li>
-          <li>Gacha token +5/hari</li>
-          <li>Ekonomi bonus 1.5x</li>
-          <li>Efek partikel eksklusif</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-    </div>
-
-    <div class="biscuit-row">
-
-      <div class="rank-card">
-        <div class="rank-header">
-          <div class="rank-name biscuit">🍪 BISCUIT</div>
-          <div class="rank-price">Rp 85.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Biscuit] golden</li>
-          <li>10 slot /sethome</li>
-          <li>TempFly unlimited</li>
-          <li>Kit Biscuit tiap hari</li>
-          <li>Gacha token +8/hari</li>
-          <li>Ekonomi bonus 2x</li>
-          <li>Semua command VIP</li>
-          <li>Tag khusus di Discord</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-      <div class="rank-card featured">
-        <div class="popular-badge">TERTINGGI</div>
-        <div class="rank-header">
-          <div class="rank-name biscuitplus">🍪+ BISCUIT+</div>
-          <div class="rank-price">Rp 120.000 <span>/ bulan</span></div>
-        </div>
-        <ul class="rank-perks">
-          <li>Prefix [Biscuit+] glowing</li>
-          <li>Unlimited /sethome</li>
-          <li>TempFly unlimited</li>
-          <li>Kit Biscuit+ tiap hari</li>
-          <li>Gacha token +15/hari</li>
-          <li>Ekonomi bonus 3x</li>
-          <li>Semua command admin</li>
-          <li>Fishing rod eksklusif</li>
-          <li>Dukungan langsung admin</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="rank-btn" target="_blank">Beli via Discord</a>
-      </div>
-
-    </div>
-
-    <div class="buy-info" style="margin-top:2rem">
-      <p>📋 Cara Beli Rank</p>
-      <p>1. Gabung Discord kami → 2. Buka channel <strong>#ticket</strong> → 3. Buat tiket & hubungi admin → 4. Transfer & rank aktif dalam 5 menit!</p>
     </div>
   </div>
-</div>
 
-<!-- ═══════════════ COINS SECTION ═══════════════ -->
-<div class="store-section" id="tab-coins">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="sec-head">
-      <div class="sec-title">🪙 COOKIES COINS</div>
-      <p class="sec-sub">Mata uang premium server — gunakan di gacha, shop, dan event!</p>
-    </div>
+  <!-- ══════════ COINS TAB ══════════ -->
+  <div class="tab-content" id="tab-coins">
+    <div class="tab-panel-wrap">
 
-    <div class="coins-grid">
-
-      <!-- 100 Coins -->
-      <div class="coin-card">
-        <div class="coin-header">
-          <span class="coin-emoji" style="--spin:5s">🪙</span>
-          <div class="coin-amount">100 Coins</div>
-          <div class="coin-bonus">&nbsp;</div>
+      <div class="coins-intro">
+        <div class="rank-intro-icon">🪙</div>
+        <div>
+          <p><strong>Cookies Coins</strong> adalah mata uang premium server. Gunakan untuk membeli item spesial, akses gacha, extend TempFly, dan masih banyak lagi. <strong>Maksimal pembelian: 500 Coins per transaksi.</strong></p>
         </div>
-        <div class="coin-price">Rp 5.000 <span></span></div>
-        <ul class="coin-perks">
-          <li>100 Cookies Coins</li>
-          <li>Langsung masuk in-game</li>
-          <li>Cocok untuk coba-coba</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="coin-btn" target="_blank">Beli via Discord</a>
       </div>
 
-      <!-- 300 Coins -->
-      <div class="coin-card">
-        <div class="coin-header">
-          <span class="coin-emoji" style="--spin:4.5s">🪙</span>
-          <div class="coin-amount">300 Coins</div>
-          <div class="coin-bonus">&nbsp;</div>
+      <div class="coins-grid">
+
+        <!-- 50 coins -->
+        <div class="coin-card">
+          <div class="coin-top">
+            <div class="coin-icon">🪙</div>
+            <div class="coin-amount">50 <span>Coins</span></div>
+          </div>
+          <div class="coin-price-row">
+            <div class="coin-price">Rp 5.000</div>
+            <div class="coin-per">Rp 100 / coin</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="coin-buy-btn" target="_blank">💬 Beli</a>
         </div>
-        <div class="coin-price">Rp 13.000 <span></span></div>
-        <ul class="coin-perks">
-          <li>300 Cookies Coins</li>
-          <li>Langsung masuk in-game</li>
-          <li>Hemat Rp 2.000</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="coin-btn" target="_blank">Beli via Discord</a>
-      </div>
 
-      <!-- 600 Coins -->
-      <div class="coin-card">
-        <div class="coin-header">
-          <span class="coin-emoji" style="--spin:4s">🪙</span>
-          <div class="coin-amount">600 Coins</div>
-          <div class="coin-bonus">+50 Bonus Coins!</div>
+        <!-- 100 coins -->
+        <div class="coin-card">
+          <div class="coin-top">
+            <div class="coin-icon">🪙</div>
+            <div class="coin-amount">100 <span>Coins</span></div>
+          </div>
+          <div class="coin-price-row">
+            <div class="coin-price">Rp 9.000</div>
+            <div class="coin-per">Rp 90 / coin</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="coin-buy-btn" target="_blank">💬 Beli</a>
         </div>
-        <div class="coin-price">Rp 25.000 <span></span></div>
-        <ul class="coin-perks">
-          <li>600 + 50 Coins bonus</li>
-          <li>Langsung masuk in-game</li>
-          <li>Hemat Rp 5.000</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="coin-btn" target="_blank">Beli via Discord</a>
-      </div>
 
-      <!-- 1500 Coins - BEST VALUE -->
-      <div class="coin-card best-value">
-        <div class="coin-badge">TERLARIS</div>
-        <div class="coin-header">
-          <span class="coin-emoji" style="--spin:3s">💰</span>
-          <div class="coin-amount">1500 Coins</div>
-          <div class="coin-bonus">+200 Bonus Coins!</div>
+        <!-- 200 coins -->
+        <div class="coin-card">
+          <div class="coin-top">
+            <div class="coin-icon">🪙</div>
+            <div class="coin-amount">200 <span>Coins</span></div>
+          </div>
+          <div class="coin-price-row">
+            <div class="coin-price">Rp 17.000</div>
+            <div class="coin-per">Rp 85 / coin</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="coin-buy-btn" target="_blank">💬 Beli</a>
         </div>
-        <div class="coin-price">Rp 55.000 <span></span></div>
-        <ul class="coin-perks">
-          <li>1500 + 200 Coins bonus</li>
-          <li>Langsung masuk in-game</li>
-          <li>Hemat Rp 20.000</li>
-          <li>Cocok untuk gacha marathon</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="coin-btn" target="_blank">Beli via Discord</a>
-      </div>
 
-      <!-- 3500 Coins -->
-      <div class="coin-card">
-        <div class="coin-header">
-          <span class="coin-emoji" style="--spin:2.5s">💰</span>
-          <div class="coin-amount">3500 Coins</div>
-          <div class="coin-bonus">+600 Bonus Coins!</div>
+        <!-- 300 coins -->
+        <div class="coin-card">
+          <div class="coin-top">
+            <div class="coin-icon">🪙</div>
+            <div class="coin-amount">300 <span>Coins</span></div>
+          </div>
+          <div class="coin-price-row">
+            <div class="coin-price">Rp 24.000</div>
+            <div class="coin-per">Rp 80 / coin</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="coin-buy-btn" target="_blank">💬 Beli</a>
         </div>
-        <div class="coin-price">Rp 120.000 <span></span></div>
-        <ul class="coin-perks">
-          <li>3500 + 600 Coins bonus</li>
-          <li>Langsung masuk in-game</li>
-          <li>Hemat Rp 55.000</li>
-          <li>Cocok untuk belanja item rare</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="coin-btn" target="_blank">Beli via Discord</a>
-      </div>
 
-      <!-- 8000 Coins - MAX PACK -->
-      <div class="coin-card">
-        <div class="coin-header">
-          <span class="coin-emoji" style="--spin:2s">👑</span>
-          <div class="coin-amount">8000 Coins</div>
-          <div class="coin-bonus">+2000 Bonus Coins!</div>
+        <!-- 400 coins -->
+        <div class="coin-card">
+          <div class="coin-top">
+            <div class="coin-icon">🪙</div>
+            <div class="coin-amount">400 <span>Coins</span></div>
+          </div>
+          <div class="coin-price-row">
+            <div class="coin-price">Rp 30.000</div>
+            <div class="coin-per">Rp 75 / coin</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="coin-buy-btn" target="_blank">💬 Beli</a>
         </div>
-        <div class="coin-price">Rp 250.000 <span></span></div>
-        <ul class="coin-perks">
-          <li>8000 + 2000 Coins bonus</li>
-          <li>Langsung masuk in-game</li>
-          <li>Hemat Rp 150.000</li>
-          <li>Paket paling hemat!</li>
-          <li>Badge eksklusif di Discord</li>
-        </ul>
-        <a href="https://discord.gg/DN5GVbu7MS" class="coin-btn" target="_blank">Beli via Discord</a>
+
+        <!-- 500 coins BEST VALUE -->
+        <div class="coin-card best-value">
+          <div class="coin-top">
+            <div class="coin-icon">🪙</div>
+            <div class="coin-amount">500 <span>Coins</span></div>
+          </div>
+          <div class="coin-price-row">
+            <div class="coin-price">Rp 35.000</div>
+            <div class="coin-per">Rp 70 / coin — terhemat!</div>
+          </div>
+          <a href="https://discord.gg/DN5GVbu7MS" class="coin-buy-btn" target="_blank">💬 Beli</a>
+        </div>
+
+      </div><!-- /coins-grid -->
+
+      <!-- HOW TO USE COINS -->
+      <div class="coins-use">
+        <div class="coins-use-title">🪙 KEGUNAAN COOKIES COINS</div>
+        <div class="coins-use-grid">
+          <div class="coins-use-item">
+            <div class="cui-icon">🎰</div>
+            <div class="cui-title">Gacha</div>
+            <div class="cui-desc">Spin gacha untuk item eksklusif server</div>
+          </div>
+          <div class="coins-use-item">
+            <div class="cui-icon">✈️</div>
+            <div class="cui-title">TempFly</div>
+            <div class="cui-desc">Extend durasi terbang lebih lama</div>
+          </div>
+          <div class="coins-use-item">
+            <div class="cui-icon">🎁</div>
+            <div class="cui-title">Crate Keys</div>
+            <div class="cui-desc">Tukar Coins dengan kunci crate spesial</div>
+          </div>
+          <div class="coins-use-item">
+            <div class="cui-icon">🏪</div>
+            <div class="cui-title">Shop Premium</div>
+            <div class="cui-desc">Beli item di toko khusus Cookies Coins</div>
+          </div>
+          <div class="coins-use-item">
+            <div class="cui-icon">🏆</div>
+            <div class="cui-title">Event</div>
+            <div class="cui-desc">Gunakan untuk ikut event berbayar</div>
+          </div>
+          <div class="coins-use-item">
+            <div class="cui-icon">🎨</div>
+            <div class="cui-title">Cosmetics</div>
+            <div class="cui-desc">Unlock pet, trail, dan kosmetik unik</div>
+          </div>
+        </div>
       </div>
 
-    </div>
-
-    <!-- COINS INFO -->
-    <div class="coin-info-box">
-      <h3>🪙 APA ITU COOKIES COINS?</h3>
-      <p>Cookies Coins adalah mata uang premium server yang bisa kamu gunakan untuk berbagai keperluan in-game. Coins tidak kadaluarsa dan bisa ditransfer ke sesama pemain!</p>
-      <div class="coin-uses">
-        <span class="coin-use-tag">🎰 Gacha System</span>
-        <span class="coin-use-tag">🏪 Premium Shop</span>
-        <span class="coin-use-tag">🔨 Auction House</span>
-        <span class="coin-use-tag">🎁 Event Khusus</span>
-        <span class="coin-use-tag">🗺️ Custom Command</span>
-        <span class="coin-use-tag">💸 Transfer ke Player</span>
+      <!-- HOW TO BUY COINS -->
+      <div class="how-box" style="margin-top:1.5rem">
+        <div class="how-title">🪙 CARA MEMBELI COINS</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-title">Join Discord</div>
+            <div class="step-desc">Masuk ke Discord server kami</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-title">Buka #beli-coins</div>
+            <div class="step-desc">Pilih jumlah coins yang ingin dibeli</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-title">Transfer</div>
+            <div class="step-desc">Lakukan pembayaran sesuai nominal</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-title">Coins Masuk!</div>
+            <div class="step-desc">Coins langsung dikirim ke akun in-game kamu</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="buy-info" style="margin-top:2rem">
-      <p>📋 Cara Beli Coins</p>
-      <p>1. Gabung Discord kami → 2. Buka channel <strong>#ticket</strong> → 3. Pilih paket coins → 4. Transfer & coins masuk dalam 5 menit!</p>
     </div>
   </div>
-</div>
+
+  <!-- DISCORD CTA -->
+  <div class="store-discord">
+    <div class="sd-title">💬 BUTUH BANTUAN?</div>
+    <p class="sd-desc">Semua pembelian diproses manual oleh admin kami di Discord. Cepat, aman, dan terpercaya!</p>
+    <a href="https://discord.gg/DN5GVbu7MS" class="discord-btn" target="_blank">
+      💬 Join Discord Sekarang
+    </a>
+  </div>
+
+</main>
 
 <footer>
   <p>&copy; 2025 <strong>Cookies Network</strong> · Survival Eco · Dibuat dengan 🍪 dan ☕</p>
@@ -571,60 +789,85 @@ footer strong{color:var(--orange)}
 </footer>
 
 <script>
-/* ── GLOBAL EMBERS (full page) ── */
-const bgEmbers = document.getElementById('bg-embers');
-for(let i=0;i<55;i++){
-  const e=document.createElement('div');
-  e.style.cssText='position:absolute;border-radius:50%;opacity:0;';
-  const dur=5+Math.random()*9, delay=Math.random()*12, sz=2+Math.random()*4;
-  e.style.setProperty('--dur',dur+'s');
-  e.style.setProperty('--delay',delay+'s');
-  e.style.left=(Math.random()*100)+'%';
-  e.style.top=(20+Math.random()*75)+'%';
-  e.style.width=sz+'px';e.style.height=sz+'px';
-  e.style.background=Math.random()>0.45?'#FF6B00':'#FFCB8C';
-  e.style.animation=`floatUp ${dur}s ease-in ${delay}s infinite`;
-  bgEmbers.appendChild(e);
-}
+/* ── TABS ── */
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
 
-/* ── TAB SWITCHER ── */
-function switchTab(id, btn){
-  document.querySelectorAll('.store-section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  btn.classList.add('active');
-  // re-trigger scroll observer for newly visible cards
-  document.querySelectorAll('#tab-'+id+' .rank-card, #tab-'+id+' .coin-card').forEach(el=>{
-    if(!el.classList.contains('visible')){observer.observe(el);}
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + target).classList.add('active');
+    observeAll();
   });
-}
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  const saved = localStorage.getItem('storeTab');
+  if(hash === '#tab-coins' || saved === 'coins') {
+    document.querySelector('[data-tab="coins"]').click();
+    localStorage.removeItem('storeTab');
+  }
+});
 
 /* ── SCROLL REVEAL ── */
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.07});
-document.querySelectorAll('.rank-card,.coin-card').forEach(el=>observer.observe(el));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.07 });
 
-/* ── CUSTOM CURSOR ── */
-const dot=document.getElementById('cur-dot'), ring=document.getElementById('cur-ring');
+function observeAll(){
+  document.querySelectorAll('.rank-card,.coin-card,.how-box,.store-discord').forEach(el => {
+    el.classList.remove('visible');
+    observer.observe(el);
+  });
+}
+observeAll();
+
+/* ── CURSOR ── */
+const dot  = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  dot.style.left=mx+'px';dot.style.top=my+'px';
+
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
   const t=document.createElement('div');
   t.className='cur-trail';
-  const sz=3+Math.random()*5;
-  t.style.cssText=`width:${sz}px;height:${sz}px;left:${mx}px;top:${my}px;background:${Math.random()>.5?'#FF6B00':'#FFCB8C'};`;
+  const sz=3+Math.random()*4;
+  t.style.cssText=`width:${sz}px;height:${sz}px;left:${mx}px;top:${my}px;background:${Math.random()>.5?'#FFD700':'#FF9900'};`;
   document.body.appendChild(t);
   setTimeout(()=>t.remove(),500);
 });
-(function loop(){rx+=(mx-rx)*0.14;ry+=(my-ry)*0.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+(function loop(){
+  rx+=(mx-rx)*.14; ry+=(my-ry)*.14;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
 document.querySelectorAll('a,button,.rank-card,.coin-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{dot.style.width='18px';dot.style.height='18px';dot.style.background='#FFCB8C';ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(255,203,140,0.8)'});
-  el.addEventListener('mouseleave',()=>{dot.style.width='12px';dot.style.height='12px';dot.style.background='#FF6B00';ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(255,107,0,0.6)'});
+  el.addEventListener('mouseenter',()=>{
+    dot.style.width='18px'; dot.style.height='18px'; dot.style.background='#FFD700';
+    ring.style.width='48px'; ring.style.height='48px'; ring.style.borderColor='rgba(255,215,0,.8)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    dot.style.width='12px'; dot.style.height='12px'; dot.style.background='#FFD700';
+    ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(255,215,0,.6)';
+  });
 });
-document.addEventListener('mousedown',()=>{dot.style.transform='translate(-50%,-50%) scale(0.6)';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.opacity='0.3'});
-document.addEventListener('mouseup',()=>{dot.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1'});
+document.addEventListener('mousedown',()=>{
+  dot.style.transform='translate(-50%,-50%) scale(.6)';
+  ring.style.transform='translate(-50%,-50%) scale(1.5)';
+  ring.style.opacity='.3';
+});
+document.addEventListener('mouseup',()=>{
+  dot.style.transform='translate(-50%,-50%) scale(1)';
+  ring.style.transform='translate(-50%,-50%) scale(1)';
+  ring.style.opacity='1';
+});
 </script>
 </body>
 </html>
